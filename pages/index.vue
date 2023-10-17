@@ -1,7 +1,7 @@
 <template lang="pug">
 .home
   .home--section1
-    p.text-s6.text-white Bem vindo, faça seu login!
+    p.text-s6.text-white Welcome, log in!
     VForm#login(
       @submit="handleSignin" 
       name="signin",
@@ -13,26 +13,26 @@
           VTextInput#name.w-full(
             variant='primary'
             v-model='name' 
-            placeholdr="Digite seu email"
+            placeholdr="Type your e-mail"
             rules="required|email"
           )
-          label.text-white.mt-4.mb-1 Senha
+          label.text-white.mt-4.mb-1 Password
           VTextInput#password.w-full(
             variant='primary' 
             v-model='password' 
-            placeholdr="Digite sua senha"
+            placeholdr="Type you password"
             rules="required"
             type="password"
           )
-          VButton.mt-4(type="submit" variant="tertiary") Entrar
-    p.text-s3.text-left.text-white.mt-4 Novo por aqui? 
-      NuxtLink.text-tertiary-200.underline(to="/signup/") Cadastre-se agora
+          VButton.mt-4(type="submit" variant="tertiary") Login
+    p.text-s3.text-left.text-white.mt-4 New here? 
+      NuxtLink.text-tertiary-200.underline(to="/signup/") Sign up now
   .home--section2
     .text-center.text-white
-      p.text-s8 Adicione amigos e 
+      p.text-s8 Add friends and
         | 
         br 
-        | bata-papo :)
+        | chat :)
 </template>
 
 <script>

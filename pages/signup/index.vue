@@ -1,7 +1,7 @@
 <template lang="pug">
 .home
   .home--section1
-    p.text-s6.text-white Cadastre-se para bater-papo!
+    p.text-s6.text-white Sign up to chat!
     VForm#login(
       @submit="handleSignup" 
       name="signup",
@@ -13,41 +13,41 @@
           VTextInput#email.w-full(
             variant='primary' 
             v-model='email' 
-            placeholder="Digite seu email"
+            placeholder="Type your email"
             rules="required"
           )
-          label.text-white.mt-4.mb-1 Nome
+          label.text-white.mt-4.mb-1 Name
           VTextInput#name.w-full(
             variant='primary' 
             v-model='name' 
-            placeholder="Digite seu nome"
+            placeholder="Type your name"
             rules="required|name"
           )
-          label.text-white.mt-4.mb-1 Crie sua senha
+          label.text-white.mt-4.mb-1 Create your password
           VTextInput#password.w-full(
             variant='primary' 
             v-model='password' 
-            placeholder="Digite sua senha"
+            placeholder="Type your password"
             type="password"
             rules="required"
           )
-          label.text-white.mt-4.mb-1 Confirme sua senha
+          label.text-white.mt-4.mb-1 Confirm your password
           VTextInput#confirmPassword.w-full(
             variant='primary' 
             v-model='confirmPassword' 
-            placeholder="Confirme sua senha"
+            placeholder="Confirm your password"
             type="password"
             rules="required"
           )
-          VButton.mt-4(type="submit" variant="tertiary") Cadastrar
-    p.text-s3.text-left.text-white.mt-4 Já é cadastrado? 
-      NuxtLink.text-tertiary-200.underline(to="/") Faça o login!
+          VButton.mt-4(type="submit" variant="tertiary") Sign up
+    p.text-s3.text-left.text-white.mt-4 Already signed up?? 
+      NuxtLink.text-tertiary-200.underline(to="/") Login!
   .home--section2
     .text-center.text-white
-      p.text-s8 Adicione amigos e 
+      p.text-s8 Add friends and
         | 
         br 
-        | bata-papo :)
+        | chat :)
 </template>
 
 <script>
