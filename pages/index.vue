@@ -22,6 +22,7 @@
             v-model='password' 
             placeholdr="Digite sua senha"
             rules="required"
+            type="password"
           )
           VButton.mt-4(type="submit" variant="tertiary") Entrar
     p.text-s3.text-left.text-white.mt-4 Novo por aqui? 
