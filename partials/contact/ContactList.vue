@@ -26,7 +26,7 @@
           )
           .l-inline-center-center-nowrap.gap-2.my-4
             VButton(
-              @click="mustShowAddFriendSection = false"
+              @click="() => {mustShowAddFriendSection = false, resetInputFriendEmail()}"
               size="small"
               type="button"
               variant="outline_tertiary"
@@ -72,6 +72,9 @@ export default {
     },
     handleAddFriend() {
       console.log("Add friend")
+    },
+    resetInputFriendEmail() {
+      this.friendEmail = ''
     }
   },
 }
@@ -85,6 +88,6 @@ export default {
   @apply l-inline-between-center w-full gap-3;
 }
 .contact-list--add-contact {
-  @apply l-inline-start-center w-full;
+  @apply l-inline-start-center-nowrap w-full;
 }
 </style>

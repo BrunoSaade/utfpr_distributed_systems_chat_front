@@ -1,5 +1,6 @@
 const state = {
   selectedTab: 0,
+  selectedChat: -1,
   auth: {
     signin: {
       name: '',

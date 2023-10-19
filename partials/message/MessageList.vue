@@ -3,14 +3,16 @@
   p.text-white.place-self-start.mb-0.text-s6 Chats
   MessageCard(
     v-ripple
-    v-for="(chat, index) in chats" 
-    :key="index" 
+    v-for="chat in chats" 
+    :key="chat.id" 
     :chat="chat"
     @click.native="handleOpenChat(chat)"
   )
 </template>
-
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
+import * as getter_types from "@/store/types/getter-types"
+import * as mutation_types from "@/store/types/mutation-types"
 export default {
   name: "MessageList",
   props: {},
@@ -18,12 +20,15 @@ export default {
     return {
       chats: [
         {
+          id: 1,
           name: "Bruno Saade"
         },
         {
+          id: 2,
           name: "Rafael Saade"
         },
         {
+          id: 3,
           name: "José Matta"
         },
       ]
@@ -31,9 +36,18 @@ export default {
   },
   mounted() {},
   created() {},
+  computed: {
+    ...mapState({}),
+    ...mapGetters({
+      getSelectedChat: getter_types.GET_SELECTED_CHAT,
+    }),
+  },
   methods: {
+    ...mapMutations({
+      setSelectedChat: mutation_types.SET_SELECTED_CHAT,
+    }),
     handleOpenChat(chat) {
-      console.log(chat)
+      this.setSelectedChat(chat.id)
     }
   },
 }
