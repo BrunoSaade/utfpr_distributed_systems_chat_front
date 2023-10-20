@@ -41,6 +41,11 @@ export default {
   data() {
     return {}
   },
+  watch: {
+    setSelectedTab(value) {
+
+    },
+  },
   computed: {
     ...mapState({}),
     ...mapGetters({

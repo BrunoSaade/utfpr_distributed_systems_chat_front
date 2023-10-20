@@ -42,12 +42,11 @@ export default {
       return this.chat?.name
     },
     isSelectedChat() {
-      return this.selectedChat === this.chat.id
+      return this.selectedChat.id === this.chat.id
     }
   },
-  mounted() {
-    console.log(this.selectedChat)
-  },
+  watch: {},
+  mounted() {},
   created() {},
   methods: {},
 }

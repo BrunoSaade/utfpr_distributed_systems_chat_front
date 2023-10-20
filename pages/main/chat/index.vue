@@ -1,12 +1,15 @@
 <template lang="pug">
 .chat
-  component(
-    :is="screens.md ? 'Sidebar' : 'BottomMenu'",
-  )  
-  SidebarComponent
+  .chat-section
+    component(
+      :is="screens.md ? 'Sidebar' : 'BottomMenu'",
+    )
+    SidebarComponent
+    ChatBody(v-if="screens.md &&  !!Object.keys(selectedChat).length")
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
 import responsive from "@/mixins/responsive"
 export default {  
   name: 'Index',
@@ -16,7 +19,11 @@ export default {
   data() {
     return {}
   },
-  computed: {},
+  computed: {
+    ...mapState({
+      selectedChat: (state) => state.selectedChat
+    }),
+  },
   watch: {},
   mounted() {
     if(this.screens.md){
@@ -33,7 +40,10 @@ export default {
 </script>
 <style lang="postcss">
 .chat {
-  @apply w-full h-screen overflow-y-auto l-inline-start-center bg-primary-800;
+  @apply l-inline-start;
+}
+.chat-section {
+  @apply l-inline-start flex-1 bg-primary-800;
 }
 </style>
   
