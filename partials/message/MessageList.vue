@@ -47,7 +47,7 @@ export default {
       setSelectedChat: mutation_types.SET_SELECTED_CHAT,
     }),
     handleOpenChat(chat) {
-      this.setSelectedChat(chat.id)
+      this.setSelectedChat(chat)
     }
   },
 }
