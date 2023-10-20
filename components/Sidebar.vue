@@ -57,7 +57,7 @@ export default {
       this.$router.push('/')
     }
   },
-}
+}// ola
 </script>
 
 <style lang="postcss">
