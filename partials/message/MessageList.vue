@@ -17,27 +17,14 @@ export default {
   name: "MessageList",
   props: {},
   data() {
-    return {
-      chats: [
-        {
-          id: 1,
-          name: "Bruno Saade"
-        },
-        {
-          id: 2,
-          name: "Rafael Saade"
-        },
-        {
-          id: 3,
-          name: "José Matta"
-        },
-      ]
-    }
+    return {}
   },
   mounted() {},
   created() {},
   computed: {
-    ...mapState({}),
+    ...mapState({
+      chats: (state) => state.chats
+    }),
     ...mapGetters({
       getSelectedChat: getter_types.GET_SELECTED_CHAT,
     }),

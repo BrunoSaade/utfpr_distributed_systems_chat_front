@@ -5,7 +5,7 @@
       :is="screens.md ? 'Sidebar' : 'BottomMenu'",
     )
     SidebarComponent
-    ChatBody(v-if="screens.md &&  !!Object.keys(selectedChat).length")
+    ChatBody(v-if="screens.md && !!Object.keys(selectedChat).length && selectedTab === 0")
 </template>
 
 <script>
@@ -21,7 +21,8 @@ export default {
   },
   computed: {
     ...mapState({
-      selectedChat: (state) => state.selectedChat
+      selectedChat: (state) => state.selectedChat,
+      selectedTab: (state) => state.selectedTab
     }),
   },
   watch: {},

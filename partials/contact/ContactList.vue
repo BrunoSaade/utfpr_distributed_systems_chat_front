@@ -39,7 +39,7 @@
           hr
   ContactCard(
     v-ripple
-    v-for="(chat, index) in chats" 
+    v-for="(chat, index) in contacts" 
     :key="index" 
     :chat="chat"
     @click.native="handleOpenChat(chat)"
@@ -47,28 +47,31 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
+import * as getter_types from "@/store/types/getter-types"
+import * as mutation_types from "@/store/types/mutation-types"
 export default {
   name: "ContactList",
   props: {},
   data() {
     return {
-      chats: [
-        {
-          name: "Bruno Saade"
-        },
-        {
-          name: "Rafael Saade"
-        },
-      ],
       friendEmail: '',
       mustShowAddFriendSection: false,
     }
   },
   mounted() {},
   created() {},
+  computed: {
+    ...mapState({
+      contacts: (state) => state.contacts
+    }),
+  },
   methods: {
+    ...mapMutations({
+      setChat: mutation_types.SET_CHAT,
+    }),
     handleOpenChat(chat) {
-      console.log(chat)
+      this.setChat(chat)
     },
     handleAddFriend() {
       console.log("Add friend")

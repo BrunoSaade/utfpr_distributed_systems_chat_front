@@ -30,9 +30,7 @@ export default {
     }
   },
   data() {
-    return {
-      name: 'Bruno Saade'
-    }
+    return {}
   },
   computed: {
     ...mapState({
