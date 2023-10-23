@@ -26,6 +26,26 @@ const state = {
       id: 3,
       name: "José Matta"
     },
+    {
+      id: 4,
+      name: "José Matta"
+    },
+    {
+      id: 5,
+      name: "José Matta"
+    },
+    {
+      id: 6,
+      name: "José Matta"
+    },
+    {
+      id: 7,
+      name: "José Matta"
+    },
+    {
+      id: 8,
+      name: "José Matta"
+    },
   ],
   contacts: [
     {
