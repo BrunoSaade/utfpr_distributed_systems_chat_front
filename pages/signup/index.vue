@@ -1,5 +1,6 @@
 <template lang="pug">
 .home
+  VNotify
   .home--section1
     p.text-s6.text-white Sign up to chat!
     VForm#login(
@@ -51,26 +52,105 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
+import * as getter_types from "@/store/types/getter-types"
+import * as mutation_types from "@/store/types/mutation-types"
+import * as action_types from "@/store/types/action-types"
+import notify from "~/mixins/notify"
 export default {  
   email: 'Index',
   components: {},
-  mixins: [],
+  mixins: [notify],
   props: {},
   data() {
-    return {
-      email: '',
-      name: '',
-      password: '',
-      confirmPassword: '',
-    }
+    return {}
   },
-  computed: {},
+  computed: {
+    ...mapState({
+      authSignup: (state) => state.auth.signup,
+    }),
+    email: {
+      get() {
+        return this.authSignup?.email
+      },
+      set(value) {
+        this.setSignupEmail(value)
+      },
+    },
+    name: {
+      get() {
+        return this.authSignup?.name
+      },
+      set(value) {
+        this.setSignupName(value)
+      },
+    },
+    password: {
+      get() {
+        return this.authSignup?.password
+      },
+      set(value) {
+        this.setSignupPassword(value)
+      },
+    },
+    confirmPassword: {
+      get() {
+        return this.authSignup?.confirmPassword
+      },
+      set(value) {
+        this.setSignupConfirmPassword(value)
+      },
+    },
+  },
   watch: {},
-  mounted() {},
+  mounted() {
+    this.resetFields()
+  },
   created() {},
   methods: {
-    handleSignup() {
-      console.log("email")
+    ...mapActions({
+      postSignup: action_types.POST_SIGNUP,
+    }),
+    ...mapMutations({
+      setSignupEmail: mutation_types.SET_EMAIL_SIGNUP,
+      setSignupName: mutation_types.SET_NAME_SIGNUP,
+      setSignupPassword: mutation_types.SET_PASSWORD_SIGNUP,
+      setSignupConfirmPassword: mutation_types.SET_CONFIRM_PASSWORD_SIGNUP,
+    }),
+    resetFields() {
+      this.setSignupEmail('')
+      this.setSignupName('')
+      this.setSignupPassword('')
+      this.setSignupConfirmPassword('')
+    },
+    isPasswordsEquals() {
+      return this.password === this.confirmPassword
+    },
+    async handleSignup() {
+      if (!this.isPasswordsEquals()) {
+        this.$notifyWarn({
+          title: 'Atention',
+          text: 'Passwords must be equals',
+        })
+      } else {
+        try {
+          await this.postSignup()
+          this.$notifySuccess({
+            title: 'Success',
+            text: 'Account created :)',
+          })
+          setTimeout(() => {
+            this.$router.push('/')
+          }, 2000)
+        } catch (error) {
+          this.$notifyError({
+            title: 'Error',
+            text: error.response.data.message,
+          })
+        } finally {
+          this.resetFields()
+        }
+      }
     },
   },
 }

@@ -1,3 +1,7 @@
 export const SET_SELECTED_TAB = "setSelectedTab"
 export const SET_SELECTED_CHAT = "setSelectedChat"
 export const SET_CHAT = "setChat"
+export const SET_EMAIL_SIGNUP = "setEmailSignup"
+export const SET_NAME_SIGNUP = "setNameSignup"
+export const SET_PASSWORD_SIGNUP = "setPasswordSignup"
+export const SET_CONFIRM_PASSWORD_SIGNUP = "setConfirmPasswordSignup"

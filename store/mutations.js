@@ -14,5 +14,17 @@ const mutations = {
     this.commit(types.SET_SELECTED_CHAT, value)
     this.commit(types.SET_SELECTED_TAB, 0)
   },
+  [types.SET_EMAIL_SIGNUP]: function (state, value) {
+    state.auth.signup.email = value
+  },
+  [types.SET_NAME_SIGNUP]: function (state, value) {
+    state.auth.signup.name = value
+  },
+  [types.SET_PASSWORD_SIGNUP]: function (state, value) {
+    state.auth.signup.password = value
+  },
+  [types.SET_CONFIRM_PASSWORD_SIGNUP]: function (state, value) {
+    state.auth.signup.confirmPassword = value
+  },
 }
 export default mutations 
