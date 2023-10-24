@@ -1,0 +1,1 @@
+export const POST_SIGNUP = 'POST_SIGNUP'
