@@ -59,7 +59,8 @@ export default {
       setSelectedTab: mutation_types.SET_SELECTED_TAB,
     }),
     handleLogout() {
-      this.$router.push('/')
+      window.localStorage.removeItem('token')
+      window.location.href = '/'
     }
   },
 }
