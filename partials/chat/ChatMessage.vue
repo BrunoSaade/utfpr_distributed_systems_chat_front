@@ -31,22 +31,14 @@ export default {
   @apply my-2;
 }
 .chat-message-content {
-  padding: 10px;
-  display: inline-block;
-  max-width: 80%;
-  margin: 5px;
-  max-height: 100%;
-  word-wrap: break-word;
+  @apply p-2.5 inline-block max-w-[80%] m-2 max-h-full break-words;
 }
 
 .friend-message {
-  background-color: #DCF8C6; /* Cor de fundo das mensagens do usuário */
-  border-radius: 15px 15px 15px 0;
+  @apply bg-secondary-300 text-white rounded-[15px] rounded-bl-none;
 }
 
 .user-message {
-  background-color: #E5E5EA; /* Cor de fundo das mensagens do amigo (exemplo) */
-  text-align: left;
-  border-radius: 15px 15px 0 15px;
+  @apply bg-white rounded-[15px] rounded-br-none text-left;
 }
 </style>
