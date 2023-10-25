@@ -13,6 +13,11 @@ const state = {
       confirmPassword: '',
     },
   },
+  account: {
+    token: '',
+    name: '',
+    email: '',
+  },
   chats: [
     {
       id: 1,
@@ -61,7 +66,7 @@ const state = {
       name: "José Matta"
     },
     {
-      id: 4,
+      id: 20,
       name: "Maria"
     },
   ],

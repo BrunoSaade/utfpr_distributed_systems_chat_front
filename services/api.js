@@ -7,12 +7,19 @@ const api = axios.create({
 });
 
 const endpoints = {
-  signIn: '/auth/signin',
-  register: '/auth/register', // Corrigido o nome da rota
+  signIn: '/auth/sign-in',
+  register: '/auth/register',
+  me: 'auth/me'
 };
 
 export default {
   register: (body) => {
     return api.post(endpoints.register, body);
   },
+  signIn: (body) => {
+    return api.post(endpoints.signIn, body);
+  },
+  me: (body) => {
+    return api.post(endpoints.me, body)
+  }
 };

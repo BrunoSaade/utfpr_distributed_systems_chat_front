@@ -26,5 +26,11 @@ const mutations = {
   [types.SET_CONFIRM_PASSWORD_SIGNUP]: function (state, value) {
     state.auth.signup.confirmPassword = value
   },
+  [types.SET_EMAIL_ACCOUNT]: function (state, value) {
+    state.account.email = value
+  },
+  [types.SET_NAME_ACCOUNT]: function (state, value) {
+    state.account.name = value
+  },
 }
 export default mutations 

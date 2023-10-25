@@ -1,12 +1,13 @@
 import ApiService from '../services/api';
 import {
   POST_SIGNUP,
+  POST_SIGNIN,
 } from './types/action-types'
+import * as mutation_types from "@/store/types/mutation-types"
 
 const actions = {
   [POST_SIGNUP]: async function ({ commit, state }) {
     try {
-      console.log(state.auth.signup)
       const body = {
         name: state.auth.signup.name,
         email: state.auth.signup.email,
@@ -16,7 +17,21 @@ const actions = {
       window.localStorage.setItem('token', response.data.data.accessToken)
       return response;
     } catch (error) {
-      throw error; // Rejeitar a promessa para propagar o erro
+      throw error;
+    }
+  },
+  [POST_SIGNIN]: async function ({ commit, state }) {
+    try {
+      const body = {
+        email: state.auth.signin.email,
+        password: state.auth.signin.password,
+      };
+      const response = await ApiService.signIn(body);
+      window.localStorage.setItem('token', response.data.data.accessToken)
+      // chamar auth/me
+      return response;
+    } catch (error) {
+      throw error; 
     }
   },
 };
