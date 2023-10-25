@@ -1,7 +1,10 @@
 <template lang="pug">
-.chat-body
-  ChatHeader(:chat="selectedChat")
-  p ola hauhaua
+.chat-body-oll(class="flex-1 overflow-y-auto p-4")
+  ChatMessage(message="Fala ai" :isFriendMessage="false")
+  ChatMessage(message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec condimentum, odio rhoncus porta tristique, velit libero convallis arcu, vel dapibus mi orci at velit. Suspendisse faucibus lorem vel tortor porttitor, nec eleifend sapien dapibus. Mauris condimentum gravida mi ac tincidunt. In semper elementum ligula. Donec suscipit tincidunt purus tempus consequat. In eget magna quis orci accumsan auctor. Duis vulputate cursus vehicula. Fusce malesuada ex vel eros facilisis auctor. Maecenas accumsan nisi vel nisi fermentum, quis egestas ipsum porttitor. Sed semper, ligula nec lobortis" :isFriendMessage="false")
+  ChatMessage(message="Opa, tudo certo, e ai?" :isFriendMessage="true")
+  ChatMessage(message="ola" :isFriendMessage="true")
+  ChatMessage(message="Beleza" :isFriendMessage="false")
 </template>
 
 <script>
@@ -24,6 +27,6 @@ export default {
 
 <style lang="postcss" scoped>
 .chat-body {
-  @apply bg-primary-800 flex-grow;
+  
 }
 </style>
