@@ -15,7 +15,8 @@
             variant='primary' 
             v-model='email' 
             placeholder="Type your email"
-            rules="required"
+            autocomplete="off"
+            rules="required|email"
           )
           label.text-white.mt-4.mb-1 Name
           VTextInput#name.w-full(
@@ -147,8 +148,6 @@ export default {
             title: 'Error',
             text: error.response.data.message,
           })
-        } finally {
-          this.resetFields()
         }
       }
     },
