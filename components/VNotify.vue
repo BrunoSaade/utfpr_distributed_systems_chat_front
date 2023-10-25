@@ -4,7 +4,7 @@ notifications.notify-container.mt-2(class='md:mr-2' :duration='5000' :max='2' :s
     .notify(:data-cy='item.title' @click='() => { handleCallAndRemove(item), close() }')
       .l-inline-end-start
         button.notify--close(@click='() => { handleCallAndRemove(item), close() }')
-          VSvg.fill-white.stroke-white(src='/contact.svg' width='12' height='12')
+          VSvg.fill-white.stroke-white(src='/close.svg' width='12' height='12')
       .l-inline-start-center.gap-2.mb-2
         div(:class='`notify--flag ${item.type}`')
         .notify--title {{ item.title }}
