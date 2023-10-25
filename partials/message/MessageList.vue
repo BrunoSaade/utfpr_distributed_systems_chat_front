@@ -31,9 +31,11 @@ export default {
   methods: {
     ...mapMutations({
       setSelectedChat: mutation_types.SET_SELECTED_CHAT,
+      mustShowChatMobile: mutation_types.SET_MUST_SHOW_CHAT_MOBILE
     }),
     handleOpenChat(chat) {
       this.setSelectedChat(chat)
+      this.mustShowChatMobile(true)
     }
   },
 }

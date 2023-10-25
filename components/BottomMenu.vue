@@ -2,7 +2,7 @@
 ul.bottom-menu
   li.p-4.rounded-lg.cursor-pointer(
     :class="getSelectedTab === 0 ? 'bg-secondary-100' : ''"
-    @click="setSelectedTab(0)"
+    @click="() => { setSelectedTab(0), mustShowChatMobile(false) }"
   )
     VSvg.fill-white(
       src="/message_outline.svg"
@@ -50,6 +50,7 @@ export default {
   methods: {
     ...mapMutations({
       setSelectedTab: mutation_types.SET_SELECTED_TAB,
+      mustShowChatMobile: mutation_types.SET_MUST_SHOW_CHAT_MOBILE
     }),
     handleLogout() {
       window.localStorage.removeItem('token')
@@ -61,6 +62,6 @@ export default {
 
 <style lang="postcss">
 .bottom-menu {
-  @apply l-inline-center-center w-full h-[60px] fixed bg-secondary-200 bottom-0 gap-8;
+  @apply l-inline-center-center w-full h-[60px] fixed bg-secondary-200 bottom-0 gap-8 z-50;
 }
 </style>

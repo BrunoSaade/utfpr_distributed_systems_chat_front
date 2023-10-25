@@ -27,6 +27,6 @@ export default {
 
 <style lang="postcss">
 .sidebar-component {
-  @apply l-stack-start-center gap-2 w-full bg-primary-600 p-4;
+  @apply l-stack-start-center gap-2 w-full bg-primary-600 p-4 pb-20;
 }
 </style>

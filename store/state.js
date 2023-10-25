@@ -1,6 +1,7 @@
 const state = {
   selectedTab: 0,
   selectedChat: {},
+  mustShowChatMobile: false,
   auth: {
     signin: {
       name: '',

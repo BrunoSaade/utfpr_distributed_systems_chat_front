@@ -32,5 +32,8 @@ const mutations = {
   [types.SET_NAME_ACCOUNT]: function (state, value) {
     state.account.name = value
   },
+  [types.SET_MUST_SHOW_CHAT_MOBILE]: function (state, value) {
+    state.mustShowChatMobile = value
+  },
 }
 export default mutations 
