@@ -1,6 +1,5 @@
 <template lang="pug">
 .message-list
-  p.text-white.place-self-start.mb-0.text-s6 Chats
   MessageCard(
     v-ripple
     v-for="chat in chats" 
