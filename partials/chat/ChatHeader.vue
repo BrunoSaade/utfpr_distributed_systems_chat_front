@@ -33,6 +33,6 @@ export default {
 
 <style lang="postcss" scoped>
 .chat-header {
-  @apply l-inline-start-center bg-primary-700 w-full h-[60px] px-3 gap-2;
+  @apply l-inline-start-center bg-primary-700 w-full h-[60px] px-3 gap-2 sticky top-0;
 }
 </style>

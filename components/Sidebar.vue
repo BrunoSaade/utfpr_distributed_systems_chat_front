@@ -68,6 +68,6 @@ export default {
 
 <style lang="postcss">
 .sidebar {
-  @apply l-stack-between-center h-screen w-[100px] bg-secondary-200 py-10;
+  @apply l-stack-between-center h-screen w-full bg-secondary-200 py-10;
 }
 </style>
