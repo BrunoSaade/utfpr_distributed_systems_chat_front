@@ -14,6 +14,9 @@ const mutations = {
     this.commit(types.SET_SELECTED_CHAT, value)
     this.commit(types.SET_SELECTED_TAB, 0)
   },
+  [types.SET_CHATS]: function (state, value) {
+    state.chats = value
+  },
   [types.SET_EMAIL_SIGNIN]: function (state, value) {
     state.auth.signin.email = value
   },
@@ -32,14 +35,26 @@ const mutations = {
   [types.SET_CONFIRM_PASSWORD_SIGNUP]: function (state, value) {
     state.auth.signup.confirmPassword = value
   },
+  [types.SET_ID_ACCOUNT]: function (state, value) {
+    state.account.id = value
+  },
   [types.SET_EMAIL_ACCOUNT]: function (state, value) {
     state.account.email = value
   },
   [types.SET_NAME_ACCOUNT]: function (state, value) {
     state.account.name = value
   },
+  [types.SET_CREATED_AT_ACCOUNT]: function (state, value) {
+    state.account.createdAt = value
+  },
+  [types.SET_UPDATED_AT_ACCOUNT]: function (state, value) {
+    state.account.updatedAt = value
+  },
   [types.SET_MUST_SHOW_CHAT_MOBILE]: function (state, value) {
     state.mustShowChatMobile = value
+  },
+  [types.SET_MESSAGES]: function (state, value) {
+    state.messages = value
   },
 }
 export default mutations 

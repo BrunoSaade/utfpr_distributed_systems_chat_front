@@ -1,2 +1,5 @@
 export const POST_SIGNUP = 'POST_SIGNUP'
 export const POST_SIGNIN = 'POST_SIGNIN'
+export const GET_ME = "GET_ME"
+export const GET_FIND_ALL_CHATS = "GET_FIND_ALL_CHATS"
+export const GET_FIND_ALL_MESSAGES = "GET_FIND_ALL_MESSAGES"

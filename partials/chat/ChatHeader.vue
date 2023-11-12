@@ -33,10 +33,11 @@ export default {
   },
   computed: {
     chatName() {
-      return this.chat?.name
+      return this.chat?.recipient?.name
     }
   },
   watch: {},
+  mounted() {},
   created() {},
   methods: {
     ...mapMutations({

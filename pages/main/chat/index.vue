@@ -12,6 +12,7 @@
 </template>
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
+import * as action_types from "@/store/types/action-types"
 import responsive from "@/mixins/responsive"
 export default {  
   name: 'Index',
@@ -35,9 +36,17 @@ export default {
     }
   },
   watch: {},
-  mounted() {},
+  mounted() {
+    this.getFindAllChats()
+    this.getMe()
+  },
   created() {},
-  methods: {},
+  methods: {
+    ...mapActions({
+      getFindAllChats: action_types.GET_FIND_ALL_CHATS,
+      getMe: action_types.GET_ME,
+    })
+  },
 }
 </script>
 <style lang="postcss">

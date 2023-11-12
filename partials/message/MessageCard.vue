@@ -38,7 +38,7 @@ export default {
       selectedChat: (state) => state.selectedChat
     }),
     chatName() {
-      return this.chat?.name
+      return this.chat?.recipient?.name
     },
     isSelectedChat() {
       return this.selectedChat.id === this.chat.id

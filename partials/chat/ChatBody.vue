@@ -1,14 +1,18 @@
 <template lang="pug">
 .chat-body-oll(class="flex-1 overflow-y-auto p-4")
-  ChatMessage(message="Fala ai" :isFriendMessage="false")
-  ChatMessage(message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec condimentum, odio rhoncus porta tristique, velit libero convallis arcu, vel dapibus mi orci at velit. Suspendisse faucibus lorem vel tortor porttitor, nec eleifend sapien dapibus. Mauris condimentum gravida mi ac tincidunt. In semper elementum ligula. Donec suscipit tincidunt purus tempus consequat. In eget magna quis orci accumsan auctor. Duis vulputate cursus vehicula. Fusce malesuada ex vel eros facilisis auctor. Maecenas accumsan nisi vel nisi fermentum, quis egestas ipsum porttitor. Sed semper, ligula nec lobortis" :isFriendMessage="false")
-  ChatMessage(message="Opa, tudo certo, e ai?" :isFriendMessage="true")
-  ChatMessage(message="ola" :isFriendMessage="true")
-  ChatMessage(message="Beleza" :isFriendMessage="false")
+  ChatMessage(
+    v-for="(message, index) in messages" 
+    :key="index"
+    :message="message.content" 
+    :isFriendMessage="isFriendMessage(message.senderId)"
+  )
 </template>
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
+import * as getter_types from "@/store/types/getter-types"
+import * as mutation_types from "@/store/types/mutation-types"
+import * as action_types from "@/store/types/action-types"
 export default {
   name: "ChatBody",
   props: {},
@@ -17,11 +21,23 @@ export default {
   },
   computed: {
     ...mapState({
-      selectedChat: (state) => state.selectedChat
+      selectedChat: (state) => state.selectedChat,
+      messages: (state) => state.messages,
+      userId: (state) => state.account.id
     }),
   },
   created() {},
-  methods: {},
+  mounted() {
+    this.getFindAllMessages()
+  },
+  methods: {
+    ...mapActions({
+      getFindAllMessages: action_types.GET_FIND_ALL_MESSAGES,
+    }),
+    isFriendMessage(recipientId) {
+      return recipientId != this.userId
+    }
+  },
 }
 </script>
 
