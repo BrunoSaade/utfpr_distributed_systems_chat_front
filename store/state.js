@@ -4,8 +4,8 @@ const state = {
   mustShowChatMobile: false,
   auth: {
     signin: {
-      name: '',
       email: '',
+      password: '',
     },
     signup: {
       name: '',

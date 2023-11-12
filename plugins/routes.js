@@ -10,11 +10,11 @@ export default ({ app, store }) => {
     }
 
     if (isPrivateRoute && !isAuthenticated) {
-      return next({ path: '/' }); // Redireciona para a página de login se não estiver autenticado
+      return next({ path: '/' });
     }
 
-    if (!isPrivateRoute && isAuthenticated && !isLoginRoute) {
-      return next({ path: '/main/chat/' }); // Redireciona para main/chat/ se estiver autenticado e não for a página de login
+    if (!isPrivateRoute && isAuthenticated) {
+      return next({ path: '/main/chat/' });
     }
 
     const { mainContent } = window;

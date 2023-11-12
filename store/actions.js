@@ -28,6 +28,9 @@ const actions = {
       };
       const response = await ApiService.signIn(body);
       window.localStorage.setItem('token', response.data.data.accessToken)
+      setTimeout(() => {
+        this.$router.push('/main/chat/')
+      }, 2000)
       // chamar auth/me
       return response;
     } catch (error) {
