@@ -54,7 +54,7 @@ export default {
     }),
     handleLogout() {
       window.localStorage.removeItem('token')
-      window.location.href = '/'
+      // window.location.href = '/'
     }
   },
 }

@@ -7,7 +7,7 @@
       :src="`https://ui-avatars.com/api/?name=${chatName}&background=66007f&color=fff&rounded=true&size=50`",
       alt="altText"
     )
-    p.text-s5.mb-0 {{ chatName }}
+    p.mb-0(class="text-s3 lg:text-s5") {{ chatName }}
   .border-l-1.pl-4
     VSvg(
       class="fill-tertiary-800"

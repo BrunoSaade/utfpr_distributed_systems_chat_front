@@ -7,8 +7,9 @@
       :src="`https://ui-avatars.com/api/?name=${chatName}&background=${isSelectedChat ? '77cd2f' : '66007f'}&color=fff&rounded=true&size=50`"
       alt="altText"
     )
-    p.text-s5.mb-0(
+    p.mb-0(
       :class="{'text-secondary-200' : isSelectedChat}"
+      class="'text-s3 md:text-s5'"
     ) {{ chatName }}
   .border-l-1.pl-4
     VSvg(

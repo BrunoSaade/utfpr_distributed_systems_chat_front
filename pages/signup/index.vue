@@ -59,7 +59,7 @@ import * as mutation_types from "@/store/types/mutation-types"
 import * as action_types from "@/store/types/action-types"
 import notify from "~/mixins/notify"
 export default {  
-  email: 'Index',
+  name: 'Index',
   components: {},
   mixins: [notify],
   props: {},
