@@ -1,5 +1,5 @@
 <template lang="pug">
-.chat-body-oll(class="flex-1 overflow-y-auto p-4")
+.chat-body-oll(class="flex-1 overflow-y-auto p-4" ref="chatBody")
   ChatMessage(
     v-for="(message, index) in messages" 
     :key="index"
@@ -31,6 +31,14 @@ export default {
   mounted() {
     this.getFindAllMessages()
     // this.createSocketConnection()
+  },
+  watch: {
+    messages(){
+      const chatBody = this.$refs.chatBody;
+      this.$nextTick(() => {
+        chatBody.scrollTop = chatBody.scrollHeight;
+      });
+    }
   },
   methods: {
     ...mapActions({
