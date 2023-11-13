@@ -24,5 +24,6 @@ const state = {
   chats: [],
   messages: [],
   contacts: [],
+  userEmailToFind: '',
 }
 export default state

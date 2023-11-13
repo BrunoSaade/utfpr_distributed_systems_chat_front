@@ -56,5 +56,8 @@ const mutations = {
   [types.SET_MESSAGES]: function (state, value) {
     state.messages = value
   },
+  [types.SET_USER_EMAIL_TO_FIND]: function (state, value) {
+    state.userEmailToFind = value
+  },
 }
 export default mutations 

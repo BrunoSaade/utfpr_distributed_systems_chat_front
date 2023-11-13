@@ -86,10 +86,20 @@ const actions = {
   },
   [types.SEND_MESSAGE_SOCKET]: async function ({commit, state},{content, chatId}) {
     try {
-      const response = SocketService.sendNewMessage(content, chatId)
-      console.log("response",response )
+      SocketService.sendNewMessage(content, chatId)
     } catch (error) {
       console.error(error)
+    }
+  },
+  [types.GET_FIND_CONTACT]: async function ({commit, state}) {
+    try {
+      const userEmail = state.userEmailToFind
+      const token = window.localStorage.getItem('token')
+      const response = await ApiService.findContact(token, userEmail)
+      console.log(response)
+      return response
+    } catch (error) {
+      throw error
     }
   },
 };

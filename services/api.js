@@ -4,6 +4,9 @@ const apiBaseUrl = 'http://localhost:8080';
 
 const api = axios.create({
   baseURL: apiBaseUrl,
+  headers:{ 
+    "ngrok-skip-browser-warning":"any"
+  }
 });
 
 const endpoints = {
@@ -12,6 +15,7 @@ const endpoints = {
   me: '/auth/me',
   findAllChats: '/chats/',
   findAllMessages: '/messages/',
+  findContact: '/users/',
 };
 
 export default {
@@ -29,5 +33,8 @@ export default {
   },
   findAllMessages: (token, chatId) => {
     return api.get(endpoints.findAllMessages + chatId, {headers: {'Authorization': 'Bearer ' + token}})  
-  }
+  },
+  findContact: (token, userEmail) => {
+    return api.get(endpoints.findContact + userEmail, {headers: {'Authorization': 'Bearer ' + token}})  
+  },
 };
