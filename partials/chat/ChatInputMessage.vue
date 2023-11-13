@@ -4,6 +4,7 @@
     VTextInput#name.w-full(
       variant='primary'
       v-model='message' 
+      @keydown-enter="handleMessage"
       rules=""
     )
     VButton(

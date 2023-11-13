@@ -10,7 +10,7 @@
       v-bind="{ autocomplete: 'off', ...$attrs }" 
       @input='handleInput' 
       @change='handleChange'
-      @keydown.enter="$event.preventDefault()"
+      @keydown.enter="$event.preventDefault(); handleEnter()"
     )
     small(v-show="!!errors[0]" class="default-input--message mt-1") {{ errors[0] }}
 
@@ -39,6 +39,9 @@ export default {
     handleChange(event) {
       const value = event.target.value
       this.$emit('change', value)
+    },
+    handleEnter() {
+      this.$emit('keydown-enter');
     },
   },
 }
