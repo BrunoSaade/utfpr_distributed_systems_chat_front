@@ -77,7 +77,7 @@ export default {
       this.mustShowChatMobile(true)
     },
     async handleAddNewChat() {
-      if(this.accountEmail != this.userEmailAdd) {
+      if(this.accountEmail === this.userEmailAdd) {
         this.$notifyWarn({
           title: 'Your email',
           text: 'Enter an email that is not yours',
