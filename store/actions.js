@@ -1,4 +1,5 @@
 import ApiService from '../services/api';
+import SocketService from '../services/socket'
 import * as types from "@/store/types/action-types"
 import * as mutation_types from "@/store/types/mutation-types"
 
@@ -29,9 +30,7 @@ const actions = {
       window.localStorage.setItem('token', response.data.data.accessToken)
       await dispatch(types.GET_ME)
       await dispatch(types.GET_FIND_ALL_CHATS)
-      setTimeout(() => {
-        this.$router.push('/main/chat/')
-      }, 2000)
+      this.$router.push('/main/chat/')
       return response;
     } catch (error) {
       throw error; 
@@ -76,6 +75,21 @@ const actions = {
       return response
     } catch (error) {
       throw error
+    }
+  },
+  [types.CREATE_SOCKET_CONNECTION]: async function ({commit, state}) {
+    try {
+      await SocketService.createConnection()
+    } catch (error) {
+      console.error(error)
+    }
+  },
+  [types.SEND_MESSAGE_SOCKET]: async function ({commit, state},{content, chatId}) {
+    try {
+      const response = SocketService.sendNewMessage(content, chatId)
+      console.log("response",response )
+    } catch (error) {
+      console.error(error)
     }
   },
 };

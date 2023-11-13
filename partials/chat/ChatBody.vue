@@ -10,6 +10,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
+import SocketService from '../../services/socket'
 import * as getter_types from "@/store/types/getter-types"
 import * as mutation_types from "@/store/types/mutation-types"
 import * as action_types from "@/store/types/action-types"
@@ -29,10 +30,13 @@ export default {
   created() {},
   mounted() {
     this.getFindAllMessages()
+    // this.createSocketConnection()
   },
   methods: {
     ...mapActions({
       getFindAllMessages: action_types.GET_FIND_ALL_MESSAGES,
+      // createSocketConnection: action_types.CREATE_SOCKET_CONNECTION,
+      sendMessageSocket: action_types.SEND_MESSAGE_SOCKET
     }),
     isFriendMessage(recipientId) {
       return recipientId != this.userId

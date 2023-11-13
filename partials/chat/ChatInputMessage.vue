@@ -29,7 +29,7 @@ export default {
   methods: {
     handleMessage() {
       if(this.message.trim() !== '') {
-        console.log(this.message.trim())
+        this.$emit('click', this.message)
         this.message = ''
       }
     }
