@@ -4,7 +4,7 @@ import * as types from "@/store/types/action-types"
 import * as mutation_types from "@/store/types/mutation-types"
 
 const actions = {
-  [types.POST_SIGNUP]: async function ({ commit, state }) {
+  [types.POST_SIGNUP]: async function ({ dispatch, commit, state }) {
     try {
       const body = {
         name: state.auth.signup.name,
@@ -13,8 +13,10 @@ const actions = {
       };
       const response = await ApiService.register(body);
       window.localStorage.setItem('token', response.data.data.accessToken)
+
       await dispatch(types.GET_ME)
       await dispatch(types.GET_FIND_ALL_CHATS)
+      
       return response;
     } catch (error) {
       throw error;
@@ -36,7 +38,7 @@ const actions = {
       throw error; 
     }
   },
-  [types.GET_ME]: async function ({commit, state}) {
+  [types.GET_ME]: async function ({dispatch, commit, state}) {
     try {
       const token = window.localStorage.getItem('token')
       const response = await ApiService.me(token)
@@ -64,12 +66,12 @@ const actions = {
       throw error
     }
   },
-  [types.GET_FIND_ALL_MESSAGES]: async function ({commit, state}) {
+  [types.GET_FIND_ALL_MESSAGES]: async function ({commit, state}, {pagination}) {
     try {
       const chatId = state.selectedChat.id
 
       const token = window.localStorage.getItem('token')
-      const response = await ApiService.findAllMessages(token, chatId)
+      const response = await ApiService.findAllMessages(token, chatId, pagination)
 
       commit(mutation_types.SET_MESSAGES, response.data.data.list)
       return response
@@ -84,19 +86,30 @@ const actions = {
       console.error(error)
     }
   },
-  [types.SEND_MESSAGE_SOCKET]: async function ({commit, state},{content, chatId}) {
-    try {
-      SocketService.sendNewMessage(content, chatId)
-    } catch (error) {
-      console.error(error)
-    }
-  },
   [types.GET_FIND_CONTACT]: async function ({commit, state}) {
     try {
       const userEmail = state.userEmailToFind
       const token = window.localStorage.getItem('token')
       const response = await ApiService.findContact(token, userEmail)
-      console.log(response)
+      const foundedContact = response.data.data
+
+      const temporaryChat = {
+        recipient: {
+          id: foundedContact.id,
+          name: foundedContact.name,
+          email: foundedContact.email,
+          createdAt: foundedContact.createdAt,
+          updatedAt: foundedContact.updatedAt,
+        },
+        id: foundedContact.email+":"+state.account.email,
+        read: false,
+        lastMessage: '',
+        createdAt: null,
+        updatedAt: null,
+      }
+
+      const newTemporaryChats = [...state.temporaryChats, temporaryChat]
+      commit(mutation_types.SET_TEMPORARY_CHATS, newTemporaryChats)
       return response
     } catch (error) {
       throw error

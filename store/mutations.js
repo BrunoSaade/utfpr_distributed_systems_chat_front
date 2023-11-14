@@ -59,5 +59,8 @@ const mutations = {
   [types.SET_USER_EMAIL_TO_FIND]: function (state, value) {
     state.userEmailToFind = value
   },
+  [types.SET_TEMPORARY_CHATS]: function (state, value) {
+    state.temporaryChats = value
+  },
 }
 export default mutations 

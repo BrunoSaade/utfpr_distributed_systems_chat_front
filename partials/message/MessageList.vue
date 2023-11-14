@@ -20,7 +20,15 @@
             type="submit" 
             variant="tertiary"
             class="!w-[90px]"
-          ) Add
+          ) Add  
+      MessageCard.mt-5(
+        v-if="temporaryChats"
+        v-ripple
+        v-for="temporaryChat in temporaryChats" 
+        :key="temporaryChat.id" 
+        :chat="temporaryChat"
+        @click.native="handleOpenChat(temporaryChat)"
+      )
     hr.mt-4
   MessageCard(
     v-ripple
@@ -50,6 +58,7 @@ export default {
       chats: (state) => state.chats,
       userEmailAdd: (state) => state.userEmailToFind,
       accountEmail: (state) => state.account.email,
+      temporaryChats: (state) => state.temporaryChats,
     }),
     ...mapGetters({
       getSelectedChat: getter_types.GET_SELECTED_CHAT,
@@ -83,17 +92,30 @@ export default {
           text: 'Enter an email that is not yours',
         })
       } else {
-        try {
-          await this.getFindContact()
-          this.$notifySuccess({
-            title: 'Success',
-            text: 'User found :)',
+        const recipientMatch = this.chats.some((chat) => {
+          return chat.recipient.email === this.userEmailAdd;
+        });
+        const temporaryRecipientMatch = this.temporaryChats.some((temporaryChat) => {
+          return temporaryChat.recipient.email === this.userEmailAdd;
+        })
+        if (recipientMatch || temporaryRecipientMatch) {
+          this.$notifyWarn({
+            title: 'Chat already exists',
+            text: 'The chat with this person already exists!',
           })
-        } catch (error) {
-          this.$notifyError({
-            title: 'Error',
-            text: error.response.data.message,
-          })
+        } else {
+          try {
+            await this.getFindContact()
+            this.$notifySuccess({
+              title: 'Success',
+              text: 'User found :)',
+            })
+          } catch (error) {
+            this.$notifyError({
+              title: 'Error',
+              text: error.response.data.message,
+            })
+          }
         }
       }
     }

@@ -22,6 +22,7 @@ const state = {
     updatedAt: '',
   },
   chats: [],
+  temporaryChats: [],
   messages: [],
   contacts: [],
   userEmailToFind: '',
