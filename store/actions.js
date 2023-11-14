@@ -72,8 +72,9 @@ const actions = {
 
       const token = window.localStorage.getItem('token')
       const response = await ApiService.findAllMessages(token, chatId, pagination)
+      const reversedMessages = response.data.data.list.reverse();
 
-      commit(mutation_types.SET_MESSAGES, response.data.data.list)
+      commit(mutation_types.SET_MESSAGES, reversedMessages)
       return response
     } catch (error) {
       throw error

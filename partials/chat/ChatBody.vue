@@ -26,9 +26,8 @@ export default {
     return {
       isLoading: false,
       pagination: {
-        taken: 10, 
-        skipped: 10, 
-        total: 29, 
+        take: 0, 
+        skip: 0, 
       },
     }
   },
@@ -44,6 +43,9 @@ export default {
   },
   mounted() {},
   watch: {
+    async selectedChat(value) {
+      await this.getFindAllMessages({pagination: this.pagination})
+    },
     messages(){
       const chatBody = this.$refs.chatBody;
       this.$nextTick(() => {
@@ -60,12 +62,13 @@ export default {
     },
     async handleScroll() {
       const chatBody = this.$refs.chatBody;
+
+      // console.log(chatBody.scrollTop )
       // Se o usuário estiver perto do topo e não estiver carregando
-      if (chatBody.scrollTop === 0 && !this.isLoading) {
+      if (chatBody.scrollTop === 100 && !this.isLoading) {
         console.log("scrool")
         this.isLoading = true;
         // Chame a API para buscar mais mensagens
-        // const newMessages = await this.fetchMoreMessages();
         // Adicione as novas mensagens ao início da lista
         // this.messages = [...newMessages, ...this.messages];
         this.isLoading = false;
