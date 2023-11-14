@@ -1,3 +1,4 @@
+import Vue from "vue";
 import * as types from "./types/mutation-types"
 
 const mutations = {
@@ -53,8 +54,8 @@ const mutations = {
   [types.SET_MUST_SHOW_CHAT_MOBILE]: function (state, value) {
     state.mustShowChatMobile = value
   },
-  [types.SET_MESSAGES]: function (state, value) {
-    state.messages = value
+  [types.SET_MESSAGES]: function (state, { chatId, messages }) {
+    Vue.set(state.messages, chatId, messages);
   },
   [types.SET_USER_EMAIL_TO_FIND]: function (state, value) {
     state.userEmailToFind = value

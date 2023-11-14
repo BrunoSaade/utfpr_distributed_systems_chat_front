@@ -43,6 +43,7 @@ import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
 import * as getter_types from "@/store/types/getter-types"
 import * as mutation_types from "@/store/types/mutation-types"
 import * as action_types from "@/store/types/action-types"
+import socket from '../../services/socket';
 export default {
   name: "MessageList",
   props: {},
@@ -52,13 +53,18 @@ export default {
     }
   },
   mounted() {},
-  created() {},
+  created() {
+    socket.on('receiveNewMessage', this.handleReceiveNewMessage);
+  },
+  beforeDestroy() {},
   computed: {
     ...mapState({
       chats: (state) => state.chats,
       userEmailAdd: (state) => state.userEmailToFind,
       accountEmail: (state) => state.account.email,
       temporaryChats: (state) => state.temporaryChats,
+      selectedChat: (state) => state.selectedChat,
+      messages: (state) => state.messages,
     }),
     ...mapGetters({
       getSelectedChat: getter_types.GET_SELECTED_CHAT,
@@ -70,13 +76,14 @@ export default {
       set(value) {
         this.setUserEmailToFind(value)
       },
-    }
+    },
   },
   methods: {
     ...mapMutations({
       setSelectedChat: mutation_types.SET_SELECTED_CHAT,
       mustShowChatMobile: mutation_types.SET_MUST_SHOW_CHAT_MOBILE,
       setUserEmailToFind: mutation_types.SET_USER_EMAIL_TO_FIND,
+      setMessages: mutation_types.SET_MESSAGES
     }),
     ...mapActions({
       getFindContact: action_types.GET_FIND_CONTACT,
@@ -118,7 +125,13 @@ export default {
           }
         }
       }
-    }
+    },
+    handleReceiveNewMessage(response) {
+      const chatId = response.chatId;
+      const existingMessages = [...(this.messages[chatId] || [])];
+      existingMessages.push(response);
+      this.setMessages({ chatId: chatId, messages: existingMessages });
+    },
   },
 }
 </script>

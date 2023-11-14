@@ -1,40 +1,29 @@
-import io from 'socket.io-client'
-import * as mutation_types from "@/store/types/mutation-types"
+// socket.js
+import io from 'socket.io-client';
 
-let socket = null
+// Create the socket connection
+const socket = io('http://localhost:8080', {
+  transports: ["websocket"],
+  query: { token: window.localStorage.getItem('token') },
+  autoConnect: true
+});
 
-export default {
-  createConnection: () => {
-    const socket_connection = io(
-      'ws://0.tcp.sa.ngrok.io:18504',
-      {
-        transports: ["websocket"],
-        query: { token: window.localStorage.getItem('token')},
-        autoConnect: true
-      }
-    )
-    
-    socket_connection.on('connect', () => {
-      console.log("deuBom")
-      socket = socket_connection
-    })
-    socket_connection.on('connect_error', (error) => {
-      
-      console.log(error)
-    })
-    socket_connection.on('error', () => {
-      console.log("error")
-    })
+// Event handlers or any other socket-related logic can be added here
 
-    return socket_connection
-  },
+// Log successful connection
+socket.on('connect', () => {
+  console.log("Socket connection established");
+});
 
-  sendNewMessage: (content, chatId) => {
-    socket.emit('sendNewMessage', {content: content, chatId: chatId})
-  },
-  receiveMessage: (response) => {
+// Log connection error
+socket.on('connect_error', (error) => {
+  console.log("Socket connection error", error);
+});
 
-    return response
-  }
-}
+// Log generic error
+socket.on('error', () => {
+  console.log("Socket connection error");
+});
 
+// Export the socket instance directly
+export default socket;

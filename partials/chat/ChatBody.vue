@@ -21,7 +21,11 @@ import * as mutation_types from "@/store/types/mutation-types"
 import * as action_types from "@/store/types/action-types"
 export default {
   name: "ChatBody",
-  props: {},
+  props: {
+    messages: {
+      type: Array,
+    }
+  },
   data() {
     return {
       isLoading: false,
@@ -34,7 +38,6 @@ export default {
   computed: {
     ...mapState({
       selectedChat: (state) => state.selectedChat,
-      messages: (state) => state.messages,
       userId: (state) => state.account.id
     }),
   },
