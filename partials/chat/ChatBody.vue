@@ -15,7 +15,6 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
-import SocketService from '../../services/socket'
 import * as getter_types from "@/store/types/getter-types"
 import * as mutation_types from "@/store/types/mutation-types"
 import * as action_types from "@/store/types/action-types"
@@ -33,21 +32,33 @@ export default {
         take: 0, 
         skip: 0, 
       },
+      isTemporaryChat: false,
     }
   },
   computed: {
     ...mapState({
       selectedChat: (state) => state.selectedChat,
-      userId: (state) => state.account.id
+      userId: (state) => state.account.id,
+      temporaryChats: (state) => state.temporaryChats,
     }),
   },
-  async created() {
-    await this.getFindAllMessages({pagination: this.pagination})
+  created() {},
+  async mounted() {
+    const isTemporaryChat = this.temporaryChats.some(temporaryChat =>
+        temporaryChat.id === this.selectedChat.id
+      );
+    if (!isTemporaryChat) {
+      await this.getFindAllMessages({pagination: this.pagination})
+    }
   },
-  mounted() {},
   watch: {
     async selectedChat(value) {
-      await this.getFindAllMessages({pagination: this.pagination})
+      const isTemporaryChat = this.temporaryChats.some(temporaryChat =>
+        temporaryChat.id === this.selectedChat.id
+      );
+      if (!isTemporaryChat) {
+        await this.getFindAllMessages({pagination: this.pagination})
+      }
     },
     messages(){
       const chatBody = this.$refs.chatBody;

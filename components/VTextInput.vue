@@ -3,6 +3,7 @@
   ValidationProvider(
     :rules='rules' 
     v-slot='{ errors }'
+    ref="validatorProvider"
   )
     input.border-none.p-0.text-neutral-600.gap-1.border.bg-white.py-2.px-4.text-neutral-400.l-inline-start-center-nowrap.w-full(
       ref='input'
@@ -42,6 +43,9 @@ export default {
     },
     handleEnter() {
       this.$emit('keydown-enter');
+    },
+    resetValidation() {
+      this.$refs.validatorProvider.reset()
     },
   },
 }

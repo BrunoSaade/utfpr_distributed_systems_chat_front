@@ -20,9 +20,9 @@ export default {
     ...mapState({
       selectedChat: (state) => state.selectedChat,
       messages: (state) => state.messages,
+      temporaryChats: (state) => state.temporaryChats,
     }),
     currentChatMessages() {
-      console.log( this.messages[this.selectedChat.id])
       return this.messages[this.selectedChat.id]
     },
   },
@@ -35,9 +35,16 @@ export default {
     }),
     handleSendMessage(value) {
       if (socket) {
-        console.log(value)
         const chatId = this.selectedChat.id;
-        socket.emit('sendNewMessage', { content: value, chatId: chatId });
+
+        const isTemporaryChat = this.temporaryChats.some(temporaryChat => temporaryChat.id === chatId);
+        
+        if (isTemporaryChat) {
+          const recipientId = this.selectedChat.recipient.id
+          socket.emit('createNewChat', { msgContent: value, recipientId: recipientId })
+        } else {
+          socket.emit('sendNewMessage', { content: value, chatId: chatId });
+        }
       }
     }
   },

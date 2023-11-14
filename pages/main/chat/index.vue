@@ -14,6 +14,7 @@
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
 import * as action_types from "@/store/types/action-types"
 import responsive from "@/mixins/responsive"
+import socket from '../../../services/socket';
 export default {  
   name: 'Index',
   components: {},
@@ -38,6 +39,7 @@ export default {
   watch: {},
   mounted() {},
   async created() {
+    socket.init();
     await this.getMe()
     await this.getFindAllChats()
   },

@@ -14,6 +14,7 @@
             v-model='userEmailToFind' 
             placeholder="Type friend's email"
             rules="required|email"
+            ref="addFriendInput"
           )
           VButton(
             size="small"
@@ -48,16 +49,16 @@ export default {
   name: "MessageList",
   props: {},
   data() {
-    return {
-      friendEmail: '',
-    }
+    return {}
   },
   mounted() {},
   created() {
-    socket.on('receiveNewMessage', this.handleReceiveNewMessage);
+    socket.on('receiveNewMessage', this.handleReceiveNewMessage)
+    socket.on('receiveNewChat', this.handleReceiveNewChat)
   },
   beforeDestroy() {
-    socket.off('receiveNewMessage', this.handleReceiveNewMessage);
+    socket.off('receiveNewMessage', this.handleReceiveNewMessage)
+    socket.off('receiveNewChat', this.handleReceiveNewChat)
   },
   computed: {
     ...mapState({
@@ -85,10 +86,13 @@ export default {
       setSelectedChat: mutation_types.SET_SELECTED_CHAT,
       mustShowChatMobile: mutation_types.SET_MUST_SHOW_CHAT_MOBILE,
       setUserEmailToFind: mutation_types.SET_USER_EMAIL_TO_FIND,
-      setMessages: mutation_types.SET_MESSAGES
+      setMessages: mutation_types.SET_MESSAGES,
+      setTemporaryChats: mutation_types.SET_TEMPORARY_CHATS,
+      setNewChat: mutation_types.SET_NEW_CHAT
     }),
     ...mapActions({
       getFindContact: action_types.GET_FIND_CONTACT,
+      getFindAllChats: action_types.GET_FIND_ALL_CHATS,
     }),
     handleOpenChat(chat) {
       this.setSelectedChat(chat)
@@ -119,6 +123,8 @@ export default {
               title: 'Success',
               text: 'User found :)',
             })
+            this.setUserEmailToFind('')
+            this.$refs.addFriendInput.resetValidation()
           } catch (error) {
             this.$notifyError({
               title: 'Error',
@@ -134,6 +140,16 @@ export default {
       existingMessages.push(response);
       this.setMessages({ chatId: chatId, messages: existingMessages });
     },
+    async handleReceiveNewChat(response) {
+      const updatedTemporaryChats = this.temporaryChats.filter(temporaryChat =>
+        temporaryChat.recipient.email !== response.recipient.email
+      )
+      this.setTemporaryChats(updatedTemporaryChats)
+      this.setNewChat(response)
+      if (response.recipient.email !== this.accountEmail) {
+        this.setSelectedChat(response)
+      }
+    }
   },
 }
 </script>
