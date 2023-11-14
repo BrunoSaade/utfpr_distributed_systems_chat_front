@@ -81,7 +81,7 @@ const actions = {
   },
   [types.CREATE_SOCKET_CONNECTION]: async function ({commit, state}) {
     try {
-      await SocketService.createConnection()
+      SocketService.createConnection()
     } catch (error) {
       console.error(error)
     }
