@@ -140,9 +140,7 @@ export default {
             title: 'Success',
             text: 'Account created :)',
           })
-          setTimeout(() => {
-            this.$router.push('/')
-          }, 2000)
+          this.$router.push('/')
         } catch (error) {
           this.$notifyError({
             title: 'Error',

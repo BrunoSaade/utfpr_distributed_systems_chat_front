@@ -36,11 +36,11 @@ export default {
     }
   },
   watch: {},
-  mounted() {
-    this.getFindAllChats()
-    this.getMe()
+  mounted() {},
+  async created() {
+    await this.getMe()
+    await this.getFindAllChats()
   },
-  created() {},
   methods: {
     ...mapActions({
       getFindAllChats: action_types.GET_FIND_ALL_CHATS,

@@ -59,7 +59,7 @@ export default {
       setSelectedTab: mutation_types.SET_SELECTED_TAB,
     }),
     handleLogout() {
-      window.localStorage.removeItem('token')
+      window.localStorage.clear()
       window.location.href = '/'
     }
   },

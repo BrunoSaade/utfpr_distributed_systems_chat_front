@@ -53,8 +53,8 @@ export default {
       mustShowChatMobile: mutation_types.SET_MUST_SHOW_CHAT_MOBILE
     }),
     handleLogout() {
-      window.localStorage.removeItem('token')
-      // window.location.href = '/'
+      window.localStorage.clear()
+      window.location.href = '/'
     }
   },
 }

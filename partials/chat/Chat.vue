@@ -32,12 +32,12 @@ export default {
   },
   mounted() {},
   beforeDestroy() {
-    this.socket_connection.disconnect()
+    if (this.socket_connection) {
+      this.socket_connection.disconnect();
+    }
   },
   methods: {
-    ...mapActions({
-      sendMessageSocket: action_types.SEND_MESSAGE_SOCKET
-    }),
+    ...mapActions({}),
     ...mapMutations({
       setMessages: mutation_types.SET_MESSAGES
     }),
@@ -46,7 +46,7 @@ export default {
       this.setMessages(newMessages)
     },
     handleSendMessage(value) {
-      this.sendMessageSocket({content: value, chatId: this.selectedChat.id})
+      this.socket_connection.emit('sendNewMessage', {content: value, chatId: this.selectedChat.id})
     }
   },
 }
