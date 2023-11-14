@@ -83,13 +83,6 @@ const actions = {
       throw error
     }
   },
-  [types.CREATE_SOCKET_CONNECTION]: async function ({commit, state}) {
-    try {
-      SocketService.createConnection()
-    } catch (error) {
-      console.error(error)
-    }
-  },
   [types.GET_FIND_CONTACT]: async function ({commit, state}) {
     try {
       const userEmail = state.userEmailToFind

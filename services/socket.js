@@ -1,29 +1,42 @@
 // socket.js
 import io from 'socket.io-client';
 
-// Create the socket connection
-const socket = io('http://localhost:8080', {
-  transports: ["websocket"],
-  query: { token: window.localStorage.getItem('token') },
-  autoConnect: true
-});
+const socket = {
+  instance: null,
+  init() {
+    this.instance = io('http://localhost:8080', {
+      transports: ["websocket"],
+      query: { token: window.localStorage.getItem('token') },
+      autoConnect: true
+    });
 
-// Event handlers or any other socket-related logic can be added here
+    this.instance.on('connect', () => {
+      console.log("Socket connection established");
+    });
 
-// Log successful connection
-socket.on('connect', () => {
-  console.log("Socket connection established");
-});
+    this.instance.on('connect_error', (error) => {
+      console.log("Socket connection error", error);
+    });
 
-// Log connection error
-socket.on('connect_error', (error) => {
-  console.log("Socket connection error", error);
-});
+    this.instance.on('error', () => {
+      console.log("Socket connection error");
+    });
+  },
+  on(event, handler) {
+    if (this.instance) {
+      this.instance.on(event, handler);
+    }
+  },
+  off(event, handler) {
+    if (this.instance) {
+      this.instance.off(event, handler);
+    }
+  },
+  emit(event, data) {
+    if (this.instance) {
+      this.instance.emit(event, data);
+    }
+  },
+};
 
-// Log generic error
-socket.on('error', () => {
-  console.log("Socket connection error");
-});
-
-// Export the socket instance directly
 export default socket;

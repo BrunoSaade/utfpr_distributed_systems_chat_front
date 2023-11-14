@@ -63,5 +63,8 @@ const mutations = {
   [types.SET_TEMPORARY_CHATS]: function (state, value) {
     state.temporaryChats = value
   },
+  [types.SET_NEW_CHAT]: function (state, newChat) {
+    state.chats = [...state.chats, newChat];
+  },
 }
 export default mutations 
