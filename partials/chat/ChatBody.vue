@@ -1,11 +1,16 @@
 <template lang="pug">
-.chat-body-oll(class="flex-1 overflow-y-auto p-4" ref="chatBody")
-  ChatMessage(
-    v-for="(message, index) in messages" 
-    :key="index"
-    :message="message.content" 
-    :isFriendMessage="isFriendMessage(message.senderId)"
-  )
+.chat-body-oll(
+  class="flex-1 overflow-y-auto p-4" 
+  ref="chatBody"
+  @scroll="handleScroll"
+)
+  transition-group(name="slide-up")
+    ChatMessage(
+      v-for="(message, index) in messages" 
+      :key="index + message"
+      :message="message.content" 
+      :isFriendMessage="isFriendMessage(message.senderId)"
+    )
 </template>
 
 <script>
@@ -18,7 +23,14 @@ export default {
   name: "ChatBody",
   props: {},
   data() {
-    return {}
+    return {
+      isLoading: false,
+      pagination: {
+        taken: 10, 
+        skipped: 10, 
+        total: 29, 
+      },
+    }
   },
   computed: {
     ...mapState({
@@ -27,11 +39,10 @@ export default {
       userId: (state) => state.account.id
     }),
   },
-  created() {},
-  mounted() {
-    this.getFindAllMessages()
-    // this.createSocketConnection()
+  async created() {
+    await this.getFindAllMessages({pagination: this.pagination})
   },
+  mounted() {},
   watch: {
     messages(){
       const chatBody = this.$refs.chatBody;
@@ -43,12 +54,23 @@ export default {
   methods: {
     ...mapActions({
       getFindAllMessages: action_types.GET_FIND_ALL_MESSAGES,
-      // createSocketConnection: action_types.CREATE_SOCKET_CONNECTION,
-      sendMessageSocket: action_types.SEND_MESSAGE_SOCKET
     }),
     isFriendMessage(recipientId) {
       return recipientId != this.userId
-    }
+    },
+    async handleScroll() {
+      const chatBody = this.$refs.chatBody;
+      // Se o usuário estiver perto do topo e não estiver carregando
+      if (chatBody.scrollTop === 0 && !this.isLoading) {
+        console.log("scrool")
+        this.isLoading = true;
+        // Chame a API para buscar mais mensagens
+        // const newMessages = await this.fetchMoreMessages();
+        // Adicione as novas mensagens ao início da lista
+        // this.messages = [...newMessages, ...this.messages];
+        this.isLoading = false;
+      }
+    },
   },
 }
 </script>
