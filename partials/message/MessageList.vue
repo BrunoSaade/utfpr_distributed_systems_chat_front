@@ -56,7 +56,9 @@ export default {
   created() {
     socket.on('receiveNewMessage', this.handleReceiveNewMessage);
   },
-  beforeDestroy() {},
+  beforeDestroy() {
+    socket.off('receiveNewMessage', this.handleReceiveNewMessage);
+  },
   computed: {
     ...mapState({
       chats: (state) => state.chats,
