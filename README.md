@@ -1,19 +1,25 @@
-# chat-front
+# UTFPR Distributed Systems Chat - Frontend
+
+## Project Overview
+
+This project, developed by Bruno Saade as part of the Distributed Systems course at the Federal Technological University of Paraná (UTFPR), aims to create a real-time chat system using the WebSocket protocol. The frontend is built with Nuxt (Vue.js) and Tailwind CSS.
+
+The backend of the project, developed by Igor Santana, can be found in the repository [here](https://github.com/igorOsantana/utfpr_distributed_systems_chat_api). It utilizes Node.js, Nest, Prisma ORM, and PostgreSQL.
 
 ## Build Setup
 
 ```bash
-# install dependencies
+# Install dependencies
 $ yarn install
 
-# serve with hot reload at localhost:3000
+# Serve with hot reload at localhost:3000
 $ yarn dev
 
-# build for production and launch server
+# Build for production and launch server
 $ yarn build
 $ yarn start
 
-# generate static project
+# Generate static project
 $ yarn generate
 ```
 
