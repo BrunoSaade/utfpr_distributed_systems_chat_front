@@ -15,8 +15,6 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
-import * as getter_types from "@/store/types/getter-types"
-import * as mutation_types from "@/store/types/mutation-types"
 import * as action_types from "@/store/types/action-types"
 export default {
   name: "ChatBody",
@@ -45,8 +43,8 @@ export default {
   created() {},
   async mounted() {
     const isTemporaryChat = this.temporaryChats.some(temporaryChat =>
-        temporaryChat.id === this.selectedChat.id
-      );
+      temporaryChat.id === this.selectedChat.id
+    );
     if (!isTemporaryChat) {
       await this.getFindAllMessages({pagination: this.pagination})
     }
@@ -80,7 +78,6 @@ export default {
       // console.log(chatBody.scrollTop )
       // Se o usuário estiver perto do topo e não estiver carregando
       if (chatBody.scrollTop === 100 && !this.isLoading) {
-        console.log("scrool")
         this.isLoading = true;
         // Chame a API para buscar mais mensagens
         // Adicione as novas mensagens ao início da lista

@@ -7,8 +7,6 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
-import * as action_types from "@/store/types/action-types"
-import * as mutation_types from "@/store/types/mutation-types"
 import socket from '../../services/socket';
 export default {
   name: "Chat",
@@ -30,15 +28,13 @@ export default {
   mounted() {},
   methods: {
     ...mapActions({}),
-    ...mapMutations({
-      setMessages: mutation_types.SET_MESSAGES
-    }),
+    ...mapMutations({}),
     handleSendMessage(value) {
       if (socket) {
         const chatId = this.selectedChat.id;
-
-        const isTemporaryChat = this.temporaryChats.some(temporaryChat => temporaryChat.id === chatId);
-        
+        const isTemporaryChat = this.temporaryChats.some(
+          temporaryChat => temporaryChat.id === chatId
+        );
         if (isTemporaryChat) {
           const recipientId = this.selectedChat.recipient.id
           socket.emit('createNewChat', { msgContent: value, recipientId: recipientId })

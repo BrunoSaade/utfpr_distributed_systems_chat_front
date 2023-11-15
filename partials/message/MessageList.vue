@@ -41,7 +41,6 @@
 </template>
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
-import * as getter_types from "@/store/types/getter-types"
 import * as mutation_types from "@/store/types/mutation-types"
 import * as action_types from "@/store/types/action-types"
 import socket from '../../services/socket';
@@ -63,7 +62,6 @@ export default {
   computed: {
     ...mapState({
       chats: (state) => state.chats,
-      userEmailAdd: (state) => state.userEmailToFind,
       accountEmail: (state) => state.account.email,
       temporaryChats: (state) => state.temporaryChats,
       selectedChat: (state) => state.selectedChat,
@@ -73,7 +71,7 @@ export default {
     ...mapGetters({}),
     userEmailToFind: {
       get() {
-        return this.userEmailAdd
+        return this.account.email
       },
       set(value) {
         this.setUserEmailToFind(value)
@@ -91,24 +89,23 @@ export default {
     }),
     ...mapActions({
       getFindContact: action_types.GET_FIND_CONTACT,
-      getFindAllChats: action_types.GET_FIND_ALL_CHATS,
     }),
     handleOpenChat(chat) {
       this.setSelectedChat(chat)
       this.mustShowChatMobile(true)
     },
     async handleAddNewChat() {
-      if(this.accountEmail === this.userEmailAdd) {
+      if(this.accountEmail === this.account.email) {
         this.$notifyWarn({
           title: 'Your email',
           text: 'Enter an email that is not yours',
         })
       } else {
         const recipientMatch = this.chats.some((chat) => {
-          return chat.recipient.email === this.userEmailAdd;
+          return chat.recipient.email === this.account.email;
         });
         const temporaryRecipientMatch = this.temporaryChats.some((temporaryChat) => {
-          return temporaryChat.recipient.email === this.userEmailAdd;
+          return temporaryChat.recipient.email === this.account.email;
         })
         if (recipientMatch || temporaryRecipientMatch) {
           this.$notifyWarn({
