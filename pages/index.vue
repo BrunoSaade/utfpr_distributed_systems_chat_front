@@ -95,7 +95,6 @@ export default {
           text: error.response.data.message,
         })
       }
-      // this.$router.push('/main/chat/')
     },
   },
 }

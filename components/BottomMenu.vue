@@ -1,25 +1,13 @@
 <template lang="pug">
 ul.bottom-menu
-  li.p-4.rounded-lg.cursor-pointer(
-    :class="getSelectedTab === 0 ? 'bg-secondary-100' : ''"
-    @click="() => { setSelectedTab(0), mustShowChatMobile(false) }"
-  )
+  li.p-4.rounded-lg
     VSvg.fill-white(
       src="/message_outline.svg"
       height="20"
       width="20"
     )
   li.p-4.rounded-lg.cursor-pointer(
-    :class="getSelectedTab === 1 ? 'bg-secondary-100' : ''"
-    @click="setSelectedTab(1)"
-  )
-    VSvg.fill-white(
-      src="/contact.svg"
-      height="20"
-      width="20"
-    )
-  li.p-4.rounded-lg.cursor-pointer(
-      :class="getSelectedTab === 2 ? 'bg-secondary-100' : ''"
+      :class="selectedTab === 2 ? 'bg-secondary-100' : ''"
       @click="() => { setSelectedTab(2), handleLogout()}"
     )
     VSvg.fill-white(
@@ -31,7 +19,6 @@ ul.bottom-menu
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
-import * as getter_types from "@/store/types/getter-types"
 import * as mutation_types from "@/store/types/mutation-types"
 export default {
   name: "BottoMenu",
@@ -40,10 +27,10 @@ export default {
     return {}
   },
   computed: {
-    ...mapState({}),
-    ...mapGetters({
-      getSelectedTab: getter_types.GET_SELECTED_TAB,
+    ...mapState({
+      selectedTab: (state) => state.selectedTab
     }),
+    ...mapGetters({}),
   },
   mounted() {},
   created() {},

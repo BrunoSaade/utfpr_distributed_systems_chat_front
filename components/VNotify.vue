@@ -78,7 +78,6 @@ export default {
 .notify--message {
   @apply pl-5 text-s2;
 }
-
 .success {
   @apply bg-success-dark-500;
 }

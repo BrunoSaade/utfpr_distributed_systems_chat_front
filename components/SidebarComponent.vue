@@ -1,8 +1,6 @@
 <template lang="pug">
 .sidebar-component
-  component(
-    :is="getSelectedTab === 0 ? 'MessageList' : 'ContactList'",
-  )  
+  MessageList
 </template>
 
 <script>
