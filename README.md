@@ -2,10 +2,11 @@
 
 ## 💻  Project Overview
 
-This project, developed by Bruno Saade as part of the Distributed Systems course at the Federal Technological University of Paraná (UTFPR), aims to create a real-time chat system using the WebSocket protocol. The frontend is built with Nuxt (Vue.js) and Tailwind CSS.
+## Project Overview
 
-The backend of the project, developed by Igor Santana, can be found in the repository [here](https://github.com/igorOsantana/utfpr_distributed_systems_chat_api). It utilizes Node.js, Nest, Prisma ORM, and PostgreSQL.
+I developed the **UTFPR Distributed Systems Chat Frontend** project as part of the Distributed Systems course in the Software Engineering program at the Federal Technological University of Paraná (UTFPR). The goal was to create a real-time system using the WebSocket protocol. The frontend was built with Nuxt (Vue.js) and Tailwind CSS.
 
+The backend for this project was developed by Igor Santana, and the repository can be found [here](https://github.com/igorOsantana/utfpr_distributed_systems_chat_api). The backend is built with Node.js, Nest.js, Prisma ORM, and PostgreSQL.
 ## 🚀 Build Setup
 
 ```bash
