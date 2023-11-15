@@ -39,9 +39,12 @@ export default {
   watch: {},
   mounted() {},
   async created() {
-    socket.init();
+    socket.init()
     await this.getMe()
     await this.getFindAllChats()
+  },
+  beforeDestroy() {
+    socket.disconnect()
   },
   methods: {
     ...mapActions({

@@ -37,6 +37,11 @@ const socket = {
       this.instance.emit(event, data);
     }
   },
+  disconnect() {
+    if (this.instance) {
+      this.instance.disconnect();
+    }
+  },
 };
 
 export default socket;
