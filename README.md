@@ -1,12 +1,12 @@
 # UTFPR Distributed Systems Chat - Frontend
 
-## Project Overview
+## 💻  Project Overview
 
 This project, developed by Bruno Saade as part of the Distributed Systems course at the Federal Technological University of Paraná (UTFPR), aims to create a real-time chat system using the WebSocket protocol. The frontend is built with Nuxt (Vue.js) and Tailwind CSS.
 
 The backend of the project, developed by Igor Santana, can be found in the repository [here](https://github.com/igorOsantana/utfpr_distributed_systems_chat_api). It utilizes Node.js, Nest, Prisma ORM, and PostgreSQL.
 
-## Build Setup
+## 🚀 Build Setup
 
 ```bash
 # Install dependencies
@@ -23,54 +23,46 @@ $ yarn start
 $ yarn generate
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
-
-## Special Directories
-
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+## Project Structure
 
 ### `assets`
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
+The `assets` directory contains uncompiled assets such as images, fonts, or stylesheets. These files can be referenced in your components or pages.
 
 ### `components`
 
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
+The `components` directory holds Vue.js components, promoting modularity and reusability. Components can be imported into pages, layouts, or other components.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
+### `mixins`
 
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
-
+The `mixins` directory contains reusable Vue.js mixins. Mixins are a way to distribute reusable functionalities across multiple components.
 
 ### `pages`
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+The `pages` directory contains application views and routes. Each `*.vue` file inside this directory represents a distinct page, and Vue Router is automatically configured.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
+### `partials`
+
+The `partials` directory may contain partial components or template files that are used across multiple pages or components.
 
 ### `plugins`
 
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
+The `plugins` directory contains JavaScript plugins that run before instantiating the root Vue.js application. This is the place to add Vue plugins or inject functions/constants.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
+### `services`
+
+The `services` directory is likely used for encapsulating logic related to external services or APIs.
 
 ### `static`
 
-This directory contains your static files. Each file inside this directory is mapped to `/`.
-
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
+The `static` directory contains static files that are served directly. Each file inside this directory is mapped to the root URL.
 
 ### `store`
 
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
+The `store` directory contains Vuex store files. Creating a file in this directory automatically activates Vuex, allowing for state management.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
-# chat-front
+### `utils`
+
+The `utils` directory may contain utility functions or helper modules used throughout the project.
+
+
