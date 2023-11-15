@@ -14,9 +14,7 @@ export default {
   },
   computed: {
     ...mapState({}),
-    ...mapGetters({
-      getSelectedTab: getter_types.GET_SELECTED_TAB,
-    }),
+    ...mapGetters({}),
   },
   created() {},
   methods: {},
