@@ -73,14 +73,33 @@ const $InotifyWarn = (context, that = Vue) => {
     }
   }, (context.duration || duration) + extraTime)
 }
+const $InotifyMessage = (context, that = Vue) => {
+  const notify = that?.$notify ?? that.notify
+  notify({
+    type: 'message',
+    duration,
+    ...context,
+    data: {
+      callAndRemove: () => callAndRemove(context),
+      chatId: context.chatId
+    },
+  })
+  setTimeout(() => {
+    if (context.onClose) {
+      context.onClose()
+    }
+  }, (context.duration || duration) + extraTime)
+}
 
 export const $notifyInfo = _debounce($InotifyInfo, 500)
 export const $notifyError = _debounce($InotifyError, 500)
 export const $notifySuccess = _debounce($InotifySuccess, 500)
 export const $notifyWarn = _debounce($InotifyWarn, 500)
+export const $notifyMessage = _debounce($InotifyMessage, 0)
 export default {
   $notifyError,
   $notifyInfo,
   $notifySuccess,
   $notifyWarn,
+  $notifyMessage
 }

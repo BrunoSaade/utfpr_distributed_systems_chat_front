@@ -3,6 +3,7 @@ import {
   $notifyInfo as notifyInfo,
   $notifySuccess as notifySuccess,
   $notifyWarn as notifyWarn,
+  $notifyMessage as notifyMessage,
 } from '../utils/notify'
 export default {
   methods: {
@@ -17,6 +18,9 @@ export default {
     },
     $notifyWarn(context) {
       notifyWarn(context, this)
+    },
+    $notifyMessage(context) {
+      notifyMessage(context, this)
     },
   },
 }

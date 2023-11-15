@@ -68,10 +68,9 @@ export default {
       temporaryChats: (state) => state.temporaryChats,
       selectedChat: (state) => state.selectedChat,
       messages: (state) => state.messages,
+      account: (state) => state.account,
     }),
-    ...mapGetters({
-      getSelectedChat: getter_types.GET_SELECTED_CHAT,
-    }),
+    ...mapGetters({}),
     userEmailToFind: {
       get() {
         return this.userEmailAdd
@@ -135,12 +134,15 @@ export default {
       }
     },
     handleReceiveNewMessage(response) {
+      if (response.senderId !== this.account.id && this.selectedChat?.id !== response.chatId) {
+        this.handleShowMessageNotification(response)
+      }
       const chatId = response.chatId;
       const existingMessages = [...(this.messages[chatId] || [])];
       existingMessages.push(response);
       this.setMessages({ chatId: chatId, messages: existingMessages });
     },
-    async handleReceiveNewChat(response) {
+    handleReceiveNewChat(response) {
       const updatedTemporaryChats = this.temporaryChats.filter(temporaryChat =>
         temporaryChat.recipient.email !== response.recipient.email
       )
@@ -149,7 +151,14 @@ export default {
       if (response.recipient.email !== this.accountEmail) {
         this.setSelectedChat(response)
       }
-    }
+    },
+    handleShowMessageNotification(message) {
+      this.$notifyMessage({
+        title: message.senderId,
+        text: message.content,
+        chatId: message.chatId
+      })
+    },
   },
 }
 </script>
