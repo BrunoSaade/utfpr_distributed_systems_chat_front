@@ -13,7 +13,7 @@
       size="small" 
       @click="handleMessage" 
       class="!w-[100px]"
-    ) Enviar
+    ) Send
 </template>
 
 <script>

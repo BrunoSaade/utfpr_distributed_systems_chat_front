@@ -42,7 +42,7 @@
             rules="required"
           )
           VButton.mt-4(type="submit" variant="tertiary") Sign up
-    p.text-s3.text-left.text-white.mt-4 Already signed up?? 
+    p.text-s3.text-left.text-white.mt-4 Already signed up? 
       NuxtLink.text-tertiary-200.underline(to="/") Login!
   .home--section2
     .text-center.text-white

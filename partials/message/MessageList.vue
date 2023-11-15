@@ -62,7 +62,7 @@ export default {
   computed: {
     ...mapState({
       chats: (state) => state.chats,
-      accountEmail: (state) => state.account.email,
+      userEmailAdd: (state) => state.userEmailToFind,
       temporaryChats: (state) => state.temporaryChats,
       selectedChat: (state) => state.selectedChat,
       messages: (state) => state.messages,
@@ -71,7 +71,7 @@ export default {
     ...mapGetters({}),
     userEmailToFind: {
       get() {
-        return this.account.email
+        return this.userEmailAdd
       },
       set(value) {
         this.setUserEmailToFind(value)
@@ -89,23 +89,24 @@ export default {
     }),
     ...mapActions({
       getFindContact: action_types.GET_FIND_CONTACT,
+      getFindAllChats: action_types.GET_FIND_ALL_CHATS,
     }),
     handleOpenChat(chat) {
       this.setSelectedChat(chat)
       this.mustShowChatMobile(true)
     },
     async handleAddNewChat() {
-      if(this.accountEmail === this.account.email) {
+      if(this.account.email === this.userEmailAdd) {
         this.$notifyWarn({
           title: 'Your email',
           text: 'Enter an email that is not yours',
         })
       } else {
         const recipientMatch = this.chats.some((chat) => {
-          return chat.recipient.email === this.account.email;
+          return chat.recipient.email === this.userEmailAdd;
         });
         const temporaryRecipientMatch = this.temporaryChats.some((temporaryChat) => {
-          return temporaryChat.recipient.email === this.account.email;
+          return temporaryChat.recipient.email === this.userEmailAdd;
         })
         if (recipientMatch || temporaryRecipientMatch) {
           this.$notifyWarn({
@@ -145,7 +146,7 @@ export default {
       )
       this.setTemporaryChats(updatedTemporaryChats)
       this.setNewChat(response)
-      if (response.recipient.email !== this.accountEmail) {
+      if (response.recipient.email !== this.account.email) {
         this.setSelectedChat(response)
       }
     },
