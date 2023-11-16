@@ -8,7 +8,7 @@
     ChatMessage(
       v-for="(message, index) in messages" 
       :key="index + message"
-      :message="message.content" 
+      :message="message" 
       :isFriendMessage="isFriendMessage(message.senderId)"
     )
 </template>
