@@ -5,17 +5,18 @@
   @scroll="handleScroll"
 )
   transition-group(name="slide-up")
-    ChatMessage(
-      v-for="(message, index) in messages" 
-      :key="index + message"
-      :message="message" 
-      :isFriendMessage="isFriendMessage(message.senderId)"
-    )
+    div(v-for="(message, index) in messages" :key="'date-' + index")
+      template(v-if="shouldDisplayDate(index)")
+        .chat-message-date.text-center.text-xs.my-2 {{ formatDate(message.createdAt) }}
+      ChatMessage(
+        :message="message" 
+        :isFriendMessage="isFriendMessage(message.senderId)"
+      )
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
-import * as action_types from "@/store/types/action-types"
+import { mapState, mapActions } from "vuex";
+import * as action_types from "@/store/types/action-types";
 export default {
   name: "ChatBody",
   props: {
@@ -40,29 +41,15 @@ export default {
       temporaryChats: (state) => state.temporaryChats,
     }),
   },
-  created() {},
-  async mounted() {
-    const isTemporaryChat = this.temporaryChats.some(temporaryChat =>
-      temporaryChat.id === this.selectedChat.id
-    );
-    if (!isTemporaryChat) {
-      await this.getFindAllMessages({pagination: this.pagination})
-    }
+  created() {
+    this.initializeChat()
   },
   watch: {
-    async selectedChat(value) {
-      const isTemporaryChat = this.temporaryChats.some(temporaryChat =>
-        temporaryChat.id === this.selectedChat.id
-      );
-      if (!isTemporaryChat) {
-        await this.getFindAllMessages({pagination: this.pagination})
-      }
+    selectedChat() {
+      this.initializeChat()
     },
-    messages(){
-      const chatBody = this.$refs.chatBody;
-      this.$nextTick(() => {
-        chatBody.scrollTop = chatBody.scrollHeight;
-      });
+    messages() {
+      this.scrollToBottom()
     }
   },
   methods: {
@@ -70,7 +57,53 @@ export default {
       getFindAllMessages: action_types.GET_FIND_ALL_MESSAGES,
     }),
     isFriendMessage(recipientId) {
-      return recipientId != this.userId
+      return recipientId !== this.userId;
+    },
+    shouldDisplayDate(index) {
+      if (index === 0) return true
+      const currentDate = new Date(this.messages[index].createdAt).toLocaleDateString()
+      const previousDate = new Date(this.messages[index - 1].createdAt).toLocaleDateString()
+      return currentDate !== previousDate
+    },
+    formatDate(timestamp) {
+      const messageDate = new Date(timestamp);
+      const currentDate = new Date();
+      
+      if (this.isSameDay(messageDate, currentDate)) {
+        return 'Today'
+      }
+
+      const yesterday = new Date(currentDate)
+      yesterday.setDate(yesterday.getDate() - 1)
+
+      if (this.isSameDay(messageDate, yesterday)) {
+        return 'Yesterday'
+      }
+
+      return messageDate.toLocaleDateString();
+    },
+    isSameDay(date1, date2) {
+      return (
+        date1.getDate() === date2.getDate() &&
+        date1.getMonth() === date2.getMonth() &&
+        date1.getFullYear() === date2.getFullYear() &&
+        date1.getHours() >= 0 && date1.getHours() < 24 &&
+        date2.getHours() >= 0 && date2.getHours() < 24
+      );
+    },
+    initializeChat() {
+      const isTemporaryChat = this.temporaryChats.some(temporaryChat =>
+        temporaryChat.id === this.selectedChat.id
+      );
+      if (!isTemporaryChat) {
+        this.getFindAllMessages({pagination: this.pagination});
+      }
+    },
+    scrollToBottom() {
+      const chatBody = this.$refs.chatBody;
+      this.$nextTick(() => {
+        chatBody.scrollTop = chatBody.scrollHeight;
+      });
     },
     async handleScroll() {
       const chatBody = this.$refs.chatBody;
@@ -84,13 +117,12 @@ export default {
         // this.messages = [...newMessages, ...this.messages];
         this.isLoading = false;
       }
-    },
+    }
   },
 }
 </script>
 
 <style lang="postcss" scoped>
 .chat-body {
-  
 }
 </style>

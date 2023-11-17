@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     getMessageSentTime() {
-      const utcDate = new Date(this.message.updatedAt);
+      const utcDate = new Date(this.message.createdAt);
       const options = { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit", hour12: false };
 
       const brazilianTimeFormat = new Intl.DateTimeFormat("default", options);
