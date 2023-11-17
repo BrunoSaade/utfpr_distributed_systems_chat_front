@@ -7,7 +7,8 @@
   transition-group(name="slide-up")
     div(v-for="(message, index) in messages" :key="'date-' + index")
       template(v-if="shouldDisplayDate(index)")
-        .chat-message-date.text-center.text-xs.my-2 {{ formatDate(message.createdAt) }}
+        .l-inline-center-center
+          .chat-message-date {{ formatDate(message.createdAt) }}
       ChatMessage(
         :message="message" 
         :isFriendMessage="isFriendMessage(message.senderId)"
@@ -124,5 +125,8 @@ export default {
 
 <style lang="postcss" scoped>
 .chat-body {
+}
+.chat-message-date {
+  @apply text-center text-s1 my-2 text-primary-100 bg-primary-700 px-3 py-1 rounded-full;
 }
 </style>
