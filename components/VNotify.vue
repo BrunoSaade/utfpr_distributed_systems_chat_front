@@ -1,14 +1,14 @@
 <template lang="pug">
 notifications.notify-container.mt-2(class='md:mr-2' :duration='5000' :max='2' :speed='500' :position="screens.md ? 'top right' : 'top center'")
   template(slot='body' slot-scope='{ item, close }')
-    .notify(:data-cy='item.title' @click='() => {handleChatRedirect(item), close()}')
+    .notify(@click='() => {handleChatRedirect(item), close()}')
       .l-inline-end-start
         button.notify--close(@click='() => { handleCallAndRemove(item), close()}')
           VSvg.fill-white.stroke-white(src='/close.svg' width='12' height='12')
       .l-inline-start-center.gap-2.mb-2
         div(v-if="item.type !== 'message'" :class='`notify--flag ${item.type}`')
         .notify--title {{ item.title }}
-      .notify--message(data-cy='alert') {{ item.text }}
+      .notify--message(:class="item.type !== 'message' ? 'pl-5' : ''") {{ item.text }}
 
 </template>
 
@@ -76,7 +76,7 @@ export default {
   @apply font-bold text-s2;
 }
 .notify--message {
-  @apply pl-5 text-s2;
+  @apply text-s2;
 }
 .success {
   @apply bg-success-dark-500;

@@ -152,7 +152,7 @@ export default {
     },
     handleShowMessageNotification(message) {
       this.$notifyMessage({
-        title: message.senderId,
+        title: message.sender.name,
         text: message.content,
         chatId: message.chatId
       })
