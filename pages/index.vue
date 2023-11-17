@@ -1,7 +1,8 @@
 <template lang="pug">
 .home
+  VNotify 
   .home--section1
-    p.text-s6.text-white Bem vindo, faça seu login!
+    p.text-s6.text-white Welcome, log in!
     VForm#login(
       @submit="handleSignin" 
       name="signin",
@@ -12,47 +13,88 @@
           label.text-white.mb-1 E-mail
           VTextInput#name.w-full(
             variant='primary'
-            v-model='name' 
-            placeholdr="Digite seu email"
+            v-model='email' 
+            placeholdr="Type your e-mail"
             rules="required|email"
           )
-          label.text-white.mt-4.mb-1 Senha
+          label.text-white.mt-4.mb-1 Password
           VTextInput#password.w-full(
             variant='primary' 
             v-model='password' 
-            placeholdr="Digite sua senha"
+            placeholdr="Type you password"
             rules="required"
+            type="password"
           )
-          VButton.mt-4(type="submit" variant="tertiary") Entrar
-    p.text-s3.text-left.text-white.mt-4 Novo por aqui? 
-      NuxtLink.text-tertiary-200.underline(to="/signup/") Cadastre-se agora
+          VButton.mt-4(type="submit" variant="tertiary") Login
+    p.text-s3.text-left.text-white.mt-4 New here? 
+      NuxtLink.text-tertiary-200.underline(to="/signup/") Sign up now
   .home--section2
     .text-center.text-white
-      p.text-s8 Adicione amigos e 
+      p.text-s8 Add friends and
         | 
         br 
-        | bata-papo :)
+        | chat :)
 </template>
-
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
+import * as getter_types from "@/store/types/getter-types"
+import * as mutation_types from "@/store/types/mutation-types"
+import * as action_types from "@/store/types/action-types"
+import notify from "~/mixins/notify"
 export default {  
   name: 'Index',
   components: {},
-  mixins: [],
+  mixins: [notify],
   props: {},
   data() {
-    return {
-      name: '',
-      password: '',
-    }
+    return {}
   },
-  computed: {},
+  computed: {
+    ...mapState({
+      authSignin: (state) => state.auth.signin,
+    }),
+    email: {
+      get() {
+        return this.authSignin?.email
+      },
+      set(value) {
+        this.setEmailSignin(value)
+      },
+    },
+    password: {
+      get() {
+        return this.authSignin?.password
+      },
+      set(value) {
+        this.setPasswordSignin(value)
+      },
+    },
+  },
   watch: {},
   mounted() {},
   created() {},
   methods: {
-    handleSignin() {
-      this.$router.push('/main/chat/')
+    ...mapActions({
+      postSignin: action_types.POST_SIGNIN,
+    }),
+    ...mapMutations({
+      setEmailSignin: mutation_types.SET_EMAIL_SIGNIN,
+      setPasswordSignin: mutation_types.SET_PASSWORD_SIGNIN,
+    }),
+    async handleSignin() {
+      try {
+        await this.postSignin()
+        this.$notifySuccess({
+          title: 'Success',
+          text: 'Logged :)',
+        })
+      } catch (error) {
+        console.log("iuahuaha", error.response.data.message)
+        this.$notifyError({
+          title: 'Error',
+          text: error.response.data.message,
+        })
+      }
     },
   },
 }

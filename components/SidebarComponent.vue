@@ -1,8 +1,6 @@
 <template lang="pug">
 .sidebar-component
-  component(
-    :is="getSelectedTab === 0 ? 'MessageList' : 'ContactList'",
-  )  
+  MessageList
 </template>
 
 <script>
@@ -16,9 +14,7 @@ export default {
   },
   computed: {
     ...mapState({}),
-    ...mapGetters({
-      getSelectedTab: getter_types.GET_SELECTED_TAB,
-    }),
+    ...mapGetters({}),
   },
   created() {},
   methods: {},
@@ -27,6 +23,6 @@ export default {
 
 <style lang="postcss">
 .sidebar-component {
-  @apply l-stack-start-center gap-2 h-screen w-full md:w-[400px] bg-primary-600 p-4;
+  @apply l-stack-start-center gap-2 w-full bg-primary-600 p-4 pb-20;
 }
 </style>

@@ -1,9 +1,11 @@
 const state = {
   selectedTab: 0,
+  selectedChat: {},
+  mustShowChatMobile: false,
   auth: {
     signin: {
-      name: '',
       email: '',
+      password: '',
     },
     signup: {
       name: '',
@@ -11,6 +13,18 @@ const state = {
       password: '',
       confirmPassword: '',
     },
-  }
+  },
+  account: {
+    id: '',
+    name: '',
+    email: '',
+    createdAt: '',
+    updatedAt: '',
+  },
+  chats: [],
+  temporaryChats: [],
+  messages: {},
+  contacts: [],
+  userEmailToFind: '',
 }
 export default state

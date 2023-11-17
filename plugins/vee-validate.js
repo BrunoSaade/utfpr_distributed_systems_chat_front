@@ -24,7 +24,7 @@ export const required = {
       valid: !["", null, undefined].includes(value),
     }
   },
-  message: "Este campo é obrigatório",
+  message: "This field is required",
   computesRequired: true,
 }
 
@@ -32,14 +32,14 @@ export const email = {
   validate(value) {
     return !emailValidate(value)
   },
-  message: "O Email deve ter uma formatação válida",
+  message: "Email must have valid formatting",
 }
 
 export const name = {
   validate(value) {
     return !nameValidate(value)
   },
-  message: "O Nome deve ser válido",
+  message: "The name must be valid",
 }
 
 extend("email", email)

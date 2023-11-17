@@ -1,7 +1,10 @@
 <template lang="pug">
 .default-form(:style='maxWidths')
   ValidationObserver(v-slot='{ handleSubmit, invalid, errors }')
-    form(@submit.prevent='handleSubmit(onSubmit)')
+    form(
+      @submit.prevent='handleSubmit(onSubmit)'
+      @keyup.enter='handleSubmit(onSubmit)'
+    )
       slot(:invalid="invalid" , :errors="errors")
 </template>
 

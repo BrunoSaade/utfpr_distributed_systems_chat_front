@@ -1,7 +1,8 @@
 <template lang="pug">
 .home
+  VNotify
   .home--section1
-    p.text-s6.text-white Cadastre-se para bater-papo!
+    p.text-s6.text-white Sign up to chat!
     VForm#login(
       @submit="handleSignup" 
       name="signup",
@@ -13,64 +14,139 @@
           VTextInput#email.w-full(
             variant='primary' 
             v-model='email' 
-            placeholder="Digite seu email"
-            rules="required"
+            placeholder="Type your email"
+            autocomplete="off"
+            rules="required|email"
           )
-          label.text-white.mt-4.mb-1 Nome
+          label.text-white.mt-4.mb-1 Name
           VTextInput#name.w-full(
             variant='primary' 
             v-model='name' 
-            placeholder="Digite seu nome"
+            placeholder="Type your name"
             rules="required|name"
           )
-          label.text-white.mt-4.mb-1 Crie sua senha
+          label.text-white.mt-4.mb-1 Create your password
           VTextInput#password.w-full(
             variant='primary' 
             v-model='password' 
-            placeholder="Digite sua senha"
+            placeholder="Type your password"
             type="password"
             rules="required"
           )
-          label.text-white.mt-4.mb-1 Confirme sua senha
+          label.text-white.mt-4.mb-1 Confirm your password
           VTextInput#confirmPassword.w-full(
             variant='primary' 
             v-model='confirmPassword' 
-            placeholder="Confirme sua senha"
+            placeholder="Confirm your password"
             type="password"
             rules="required"
           )
-          VButton.mt-4(type="submit" variant="tertiary") Cadastrar
-    p.text-s3.text-left.text-white.mt-4 Já é cadastrado? 
-      NuxtLink.text-tertiary-200.underline(to="/") Faça o login!
+          VButton.mt-4(type="submit" variant="tertiary") Sign up
+    p.text-s3.text-left.text-white.mt-4 Already signed up? 
+      NuxtLink.text-tertiary-200.underline(to="/") Login!
   .home--section2
     .text-center.text-white
-      p.text-s8 Adicione amigos e 
+      p.text-s8 Add friends and
         | 
         br 
-        | bata-papo :)
+        | chat :)
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
+import * as mutation_types from "@/store/types/mutation-types"
+import * as action_types from "@/store/types/action-types"
+import notify from "~/mixins/notify"
 export default {  
-  email: 'Index',
+  name: 'Index',
   components: {},
-  mixins: [],
+  mixins: [notify],
   props: {},
   data() {
-    return {
-      email: '',
-      name: '',
-      password: '',
-      confirmPassword: '',
-    }
+    return {}
   },
-  computed: {},
+  computed: {
+    ...mapState({
+      authSignup: (state) => state.auth.signup,
+    }),
+    email: {
+      get() {
+        return this.authSignup?.email
+      },
+      set(value) {
+        this.setSignupEmail(value)
+      },
+    },
+    name: {
+      get() {
+        return this.authSignup?.name
+      },
+      set(value) {
+        this.setSignupName(value)
+      },
+    },
+    password: {
+      get() {
+        return this.authSignup?.password
+      },
+      set(value) {
+        this.setSignupPassword(value)
+      },
+    },
+    confirmPassword: {
+      get() {
+        return this.authSignup?.confirmPassword
+      },
+      set(value) {
+        this.setSignupConfirmPassword(value)
+      },
+    },
+  },
   watch: {},
-  mounted() {},
+  mounted() {
+    this.resetFields()
+  },
   created() {},
   methods: {
-    handleSignup() {
-      console.log("email")
+    ...mapActions({
+      postSignup: action_types.POST_SIGNUP,
+    }),
+    ...mapMutations({
+      setSignupEmail: mutation_types.SET_EMAIL_SIGNUP,
+      setSignupName: mutation_types.SET_NAME_SIGNUP,
+      setSignupPassword: mutation_types.SET_PASSWORD_SIGNUP,
+      setSignupConfirmPassword: mutation_types.SET_CONFIRM_PASSWORD_SIGNUP,
+    }),
+    resetFields() {
+      this.setSignupEmail('')
+      this.setSignupName('')
+      this.setSignupPassword('')
+      this.setSignupConfirmPassword('')
+    },
+    isPasswordsEquals() {
+      return this.password === this.confirmPassword
+    },
+    async handleSignup() {
+      if (!this.isPasswordsEquals()) {
+        this.$notifyWarn({
+          title: 'Atention',
+          text: 'Passwords must be equals',
+        })
+      } else {
+        try {
+          await this.postSignup()
+          this.$notifySuccess({
+            title: 'Success',
+            text: 'Account created :)',
+          })
+          this.$router.push('/')
+        } catch (error) {
+          this.$notifyError({
+            title: 'Error',
+            text: error.response.data.message,
+          })
+        }
+      }
     },
   },
 }

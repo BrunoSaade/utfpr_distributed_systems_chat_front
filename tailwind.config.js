@@ -5,7 +5,6 @@ module.exports = {
   content: [
     './components/**/*.{vue,js,html}',
     './pages/**/*.{vue,js,html}',
-    './layouts/**/*.{vue,js,html}',
     './partials/**/*.{vue,js}',
   ],
   theme: {

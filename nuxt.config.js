@@ -13,7 +13,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/message.svg' }
     ]
   },
 
@@ -23,9 +23,11 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '~/plugins/notifications', ssr: false },
     { src: '~/plugins/vee-validate', ssr: false },
     { src: '~/plugins/globalPartials', ssr: false },
     { src: '~/plugins/ripple', ssr: false },
+    { src: '~/plugins/routes', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
