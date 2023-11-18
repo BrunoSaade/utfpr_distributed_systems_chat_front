@@ -7,10 +7,12 @@
       :src="`https://ui-avatars.com/api/?name=${chatName}&background=${isSelectedChat ? '77cd2f' : '66007f'}&color=fff&rounded=true&size=50`"
       alt="altText"
     )
-    p.mb-0(
-      :class="{'text-secondary-200' : isSelectedChat}"
-      class="'text-s3 md:text-s5'"
-    ) {{ chatName }}
+    .l-stack-start-start-nowrap
+      p.mb-0(
+        :class="{'text-secondary-200' : isSelectedChat}"
+        class="'text-s3 md:text-s5'"
+      ) {{ chatName }}
+      p.message-card--last-message(class="'text-s3 md:text-s5'") {{ lastMessage }}
   .border-l-1.pl-4
     VSvg(
       :class="isSelectedChat ? 'fill-secondary-200' : 'fill-tertiary-800'"
@@ -42,6 +44,9 @@ export default {
     },
     isSelectedChat() {
       return this.selectedChat.id === this.chat.id
+    },
+    lastMessage() {
+      return this.chat?.lastMessage
     }
   },
   watch: {},
@@ -56,9 +61,9 @@ export default {
   @apply w-full h-16 rounded-xl l-inline-between-center px-5 cursor-pointer bg-white;
 }
 .message-card--info {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden; 
-  @apply l-inline-start-center gap-3;
+  @apply l-inline-start-center gap-3 overflow-hidden whitespace-nowrap text-ellipsis;
+}
+.message-card--last-message {
+  @apply mb-0 text-tertiary-900 overflow-hidden whitespace-nowrap text-ellipsis max-w-[80px] lg:max-w-[150px] xl:max-w-[250px];
 }
 </style>

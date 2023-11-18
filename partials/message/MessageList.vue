@@ -43,6 +43,7 @@
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex"
 import * as mutation_types from "@/store/types/mutation-types"
 import * as action_types from "@/store/types/action-types"
+import * as getter_types from "@/store/types/getter-types"
 import socket from '../../services/socket';
 export default {
   name: "MessageList",
@@ -85,7 +86,8 @@ export default {
       setUserEmailToFind: mutation_types.SET_USER_EMAIL_TO_FIND,
       setMessages: mutation_types.SET_MESSAGES,
       setTemporaryChats: mutation_types.SET_TEMPORARY_CHATS,
-      setNewChat: mutation_types.SET_NEW_CHAT
+      setNewChat: mutation_types.SET_NEW_CHAT,
+      setLastMessageByChatId: mutation_types.SET_LAST_MESSAGE_BY_CHAT_ID,
     }),
     ...mapActions({
       getFindContact: action_types.GET_FIND_CONTACT,
@@ -137,8 +139,11 @@ export default {
       }
       const chatId = response.chatId;
       const existingMessages = [...(this.messages[chatId] || [])];
+
       existingMessages.push(response);
+
       this.setMessages({ chatId: chatId, messages: existingMessages });
+      this.setLastMessageByChatId({lastMessage: response.content, chatId: response.chatId})
     },
     handleReceiveNewChat(response) {
       const updatedTemporaryChats = this.temporaryChats.filter(temporaryChat =>

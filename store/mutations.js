@@ -66,5 +66,11 @@ const mutations = {
   [types.SET_NEW_CHAT]: function (state, newChat) {
     state.chats = [...state.chats, newChat];
   },
+  [types.SET_LAST_MESSAGE_BY_CHAT_ID]: (state, { lastMessage, chatId }) => {
+    const chat = state.chats.find(chat => chat.id === chatId);
+    if (chat) {
+      chat.lastMessage = lastMessage;
+    }
+  },
 }
 export default mutations 
